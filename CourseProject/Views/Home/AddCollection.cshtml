@@ -13,12 +13,13 @@
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        <h4>Add new collection</h4>
-        <div>
+        <div class="form-horizontal">
+            <h4>Add new collection</h4>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div>
                 Title:
                 @Html.EditorFor(model => model.Title)
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
             </div>
             <div>
                 Desciption:
@@ -35,32 +36,27 @@
                 Theme:
                 @Html.DropDownListFor(model => model.Theme, (IEnumerable<SelectListItem>)new SelectList(ViewBag.Themes))
             </div>
+            <h4>Items settings:</h4>
             <div>
-                Items count:
-                @Html.EditorFor(model => model.ItemsCount)
-                @Html.ValidationMessageFor(model => model.ItemsCount, "", new { @class = "text-danger" })
+                Int values count:
+                @Html.EditorFor(model => model.IntValuesCount)
+                @Html.ValidationMessageFor(model => model.IntValuesCount, "", new { @class = "text-danger" })
             </div>
-        </div>
-        <h4>Items settings:</h4>
-        <div>
-            Int values count:
-            @Html.EditorFor(model => model.IntValuesCount)
-            @Html.ValidationMessageFor(model => model.IntValuesCount, "", new { @class = "text-danger" })
-        </div>
-        <div>
-            String values count:
-            @Html.EditorFor(model => model.StringValuesCount)
-            @Html.ValidationMessageFor(model => model.StringValuesCount, "", new { @class = "text-danger" })
-        </div>
-        <div>
-            Bool values count:
-            @Html.EditorFor(model => model.BoolValuesCount)
-            @Html.ValidationMessageFor(model => model.BoolValuesCount, "", new { @class = "text-danger" })
-        </div>
-        <div>
-            DateTime values count:
-            @Html.EditorFor(model => model.DateValuesCount)
-            @Html.ValidationMessageFor(model => model.DateValuesCount, "", new { @class = "text-danger" })
+            <div>
+                String values count:
+                @Html.EditorFor(model => model.StringValuesCount)
+                @Html.ValidationMessageFor(model => model.StringValuesCount, "", new { @class = "text-danger" })
+            </div>
+            <div>
+                Bool values count:
+                @Html.EditorFor(model => model.BoolValuesCount)
+                @Html.ValidationMessageFor(model => model.BoolValuesCount, "", new { @class = "text-danger" })
+            </div>
+            <div>
+                DateTime values count:
+                @Html.EditorFor(model => model.DateValuesCount)
+                @Html.ValidationMessageFor(model => model.DateValuesCount, "", new { @class = "text-danger" })
+            </div>
         </div>
         <div>
             <button type="submit"> Create </button>
@@ -69,7 +65,9 @@
 </body>
 </html>
 
-<script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
         Dropzone.options.myDropzone = {
             url: "@Url.Action("Upload", "Home")",
             maxFiles: 1,
@@ -91,4 +89,7 @@
                 });
             }
         };
-</script>
+    </script>
+}
+
+

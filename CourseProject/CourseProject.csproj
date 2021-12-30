@@ -217,6 +217,14 @@
     <Compile Include="Migrations\202112300507347_k.designer.cs">
       <DependentUpon>202112300507347_k.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202112301701279_item.cs" />
+    <Compile Include="Migrations\202112301701279_item.designer.cs">
+      <DependentUpon>202112301701279_item.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112301703171_CollectionId.cs" />
+    <Compile Include="Migrations\202112301703171_CollectionId.designer.cs">
+      <DependentUpon>202112301703171_CollectionId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationContext.cs" />
     <Compile Include="Models\BoolValue.cs" />
@@ -234,6 +242,7 @@
     <Compile Include="Services\LoginManager.cs" />
     <Compile Include="Validators\UniqueEmailAddres.cs" />
     <Compile Include="Validators\UniqueName.cs" />
+    <Compile Include="Validators\UniqueTitle.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -286,7 +295,7 @@
     <Content Include="Views\Home\MainPage.cshtml" />
     <Content Include="Views\Home\ListOfUsers.cshtml" />
     <Content Include="Views\Home\AddCollection.cshtml" />
-    <Content Include="Views\Home\EditItems.cshtml" />
+    <Content Include="Views\Home\ShowCollection.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -324,6 +333,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112300507347_k.resx">
       <DependentUpon>202112300507347_k.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112301701279_item.resx">
+      <DependentUpon>202112301701279_item.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112301703171_CollectionId.resx">
+      <DependentUpon>202112301703171_CollectionId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

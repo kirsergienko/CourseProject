@@ -1,4 +1,5 @@
 ﻿using CourseProject.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -57,6 +58,11 @@ namespace CourseProject.Services
         {
             context.Users.FirstOrDefault(x => x.Id == id).IsAdmin = !context.Users.FirstOrDefault(x => x.Id == id).IsAdmin;
             context.SaveChanges();
+        }
+
+        public Collection GetCollection(Collection collection)
+        {
+            return context.Collections.FirstOrDefault(x => x.Title == collection.Title);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using CourseProject.Validators;
 
 namespace CourseProject.Models
@@ -10,6 +11,8 @@ namespace CourseProject.Models
 
         public int UserId { get; set; }
 
+        [UniqueTitle]
+        [MinLength(3)]
         public string Title { get; set; }
 
         public string Description { get; set; }
@@ -18,7 +21,6 @@ namespace CourseProject.Models
 
         public string Image { get; set; }
 
-        [IsCount]
         public int ItemsCount { get; set; }
 
         [IsCount]
@@ -32,7 +34,5 @@ namespace CourseProject.Models
 
         [IsCount]
         public int DateValuesCount { get; set; }
-
-        public List<Item> Items { get; set; }
     }
 }

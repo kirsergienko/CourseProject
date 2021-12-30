@@ -84,6 +84,32 @@ namespace CourseProject.Controllers
 
         public ActionResult AddCollection()
         {
+            return GenerateAddCollectinoView();
+        }
+
+        [HttpPost]
+        public ActionResult AddCollection(Collection collection)
+        {
+            if(ModelState.IsValid)
+            {
+                UserModel user = SetCurrentUser();
+                if (!CurrentUserCheck(user) || !user.IsAdmin)
+                {
+                    return View("Login");
+                }
+                collection.UserId = user.Id;
+                db.AddCollection(collection);
+                return View("ShowCollection");
+            }
+            else
+            {
+                return GenerateAddCollectinoView();
+            }
+        }
+
+
+        private ActionResult GenerateAddCollectinoView()
+        {
             UserModel user = SetCurrentUser();
             if (!CurrentUserCheck(user) || !user.IsAdmin)
             {
@@ -102,44 +128,6 @@ namespace CourseProject.Controllers
             };
             return View();
         }
-
-        [HttpPost]
-        public ActionResult AddCollection(Collection collection)
-        {
-            UserModel user = SetCurrentUser();
-
-            if (!CurrentUserCheck(user) || !user.IsAdmin)
-            {
-                return View("Login");
-            }
-            collection.UserId = user.Id;
-            db.AddCollection(collection);
-            return View("EditItems", collection);
-        }
-
-        public ActionResult EditItems()
-        {
-            UserModel user = SetCurrentUser();
-            if (!CurrentUserCheck(user) || !user.IsAdmin)
-            {
-                return View("Login");
-            }
-
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult EditItems(Collection collection)
-        {
-            UserModel user = SetCurrentUser();
-            if (!CurrentUserCheck(user) || !user.IsAdmin)
-            {
-                return View("Login");
-            }
-            db.AddCollection(collection);
-            return View("MainPage");
-        }
-
 
         [HttpPost]
         public ActionResult Upload()
