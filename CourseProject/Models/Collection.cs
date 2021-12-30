@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using CourseProject.Validators;
 
 namespace CourseProject.Models
 {
@@ -16,6 +18,7 @@ namespace CourseProject.Models
 
         public string Image { get; set; }
 
+        [IsCount]
         public int ItemsCount { get; set; }
 
         public List<Item> Items { get; set; }

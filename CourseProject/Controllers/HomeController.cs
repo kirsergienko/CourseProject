@@ -48,15 +48,19 @@ namespace CourseProject.Controllers
         [HttpPost]
         public ActionResult Registration(RegistrationModel user)
         {
-            db.AddUser(new UserModel
+            if (ModelState.IsValid)
             {
-                UserName = user.UserName,
-                EMail = user.EMail,
-                Password = user.Password
-            });
-            TempData["CurrentUser"] = user.UserName;
-            SetCurrentUser();
-            return View("MainPage");
+                db.AddUser(new UserModel
+                {
+                    UserName = user.UserName,
+                    EMail = user.EMail,
+                    Password = user.Password
+                });
+                TempData["CurrentUser"] = user.UserName;
+                SetCurrentUser();
+                return View("MainPage");
+            }
+            else return View();
         }
 
         public ActionResult ListOfUsers()
@@ -102,14 +106,48 @@ namespace CourseProject.Controllers
         [HttpPost]
         public ActionResult AddCollection(Collection collection)
         {
+            if (ModelState.IsValid)
+            {
+                UserModel user = SetCurrentUser();
+                if (!CurrentUserCheck(user) || !user.IsAdmin)
+                {
+                    return View("Login");
+                }
+                collection.UserId = user.Id;
+                db.AddCollection(collection);
+
+                return View("EditCollection", collection);
+            }
+            else
+            {
+                return View();
+            }
+
+        }
+
+        public ActionResult EditCollection()
+        {
+            UserModel user = SetCurrentUser();
+            if (!CurrentUserCheck(user) || !user.IsAdmin)
+            {
+                return View("Login");
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult EditCollection(Collection collection)
+        {
             UserModel user = SetCurrentUser();
             if (!CurrentUserCheck(user) || !user.IsAdmin)
             {
                 return View("Login");
             }
             db.AddCollection(collection);
-            return View("EditCollection", collection);
+            return View("MainPage");
         }
+
 
         [HttpPost]
         public ActionResult Upload()
