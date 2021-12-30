@@ -106,26 +106,18 @@ namespace CourseProject.Controllers
         [HttpPost]
         public ActionResult AddCollection(Collection collection)
         {
-            if (ModelState.IsValid)
-            {
-                UserModel user = SetCurrentUser();
-                if (!CurrentUserCheck(user) || !user.IsAdmin)
-                {
-                    return View("Login");
-                }
-                collection.UserId = user.Id;
-                db.AddCollection(collection);
+            UserModel user = SetCurrentUser();
 
-                return View("EditCollection", collection);
-            }
-            else
+            if (!CurrentUserCheck(user) || !user.IsAdmin)
             {
-                return View();
+                return View("Login");
             }
-
+            collection.UserId = user.Id;
+            db.AddCollection(collection);
+            return View("EditItems", collection);
         }
 
-        public ActionResult EditCollection()
+        public ActionResult EditItems()
         {
             UserModel user = SetCurrentUser();
             if (!CurrentUserCheck(user) || !user.IsAdmin)
@@ -137,7 +129,7 @@ namespace CourseProject.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditCollection(Collection collection)
+        public ActionResult EditItems(Collection collection)
         {
             UserModel user = SetCurrentUser();
             if (!CurrentUserCheck(user) || !user.IsAdmin)
