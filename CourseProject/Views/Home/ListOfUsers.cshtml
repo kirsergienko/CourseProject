@@ -1,0 +1,84 @@
+﻿@using CourseProject.Models
+@model List<UserModel>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Users</title>
+    <link href="@Url.Content("~/Content/site.css")" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm())
+        {
+            if (ViewBag.IsAdmin)
+            {
+                <div>
+                    <input type="submit" value="Delete" formaction="Delete" formmethod="post" height="40" width="40" />
+                    <input type="submit" value="Block" formaction="Block" formmethod="post" height="40" width="40" />
+                    <input type="submit" value="Unblock" formaction="Unblock" formmethod="post" height="50" width="40" />
+                    <input type="submit" value="Change Role" formaction="ChangeRole" formmethod="post" height="50" width="40" />
+                </div>
+            }
+            <h2>Users:</h2>
+            <table class="table" id="myTable">
+                <tr>
+                    <td>
+                        @Html.CheckBox("CheckAll", false, new { id = "select_all" }) <span>  All</span>
+                        <script>
+                            $('#select_all').click(function () {
+                                $('.someClass').prop('checked', this.checked)
+                            });
+                        </script>
+                    </td>
+                    <td>
+                        <p>Id</p>
+                    </td>
+                    <td>
+                        <p>User name</p>
+                    </td>
+                    <td>
+                        <p>E-Mail</p>
+                    </td>
+                    <td>
+                        <p>Is blocked</p>
+                    </td>
+                    <td>
+                        <p>Is admin</p>
+                    </td>
+                    <td>
+                        <p></p>
+                    </td>
+                </tr>
+                @for (int i = 0; i < Model.Count(); i++)
+                {
+                    <tr>
+                        <td>
+                            @Html.CheckBoxFor(model => Model[i].IsChecked, new { @class = "someClass" })
+                            @Html.HiddenFor(model => model[i].Id)
+                        </td>
+                        <td>
+                            <p> @Model[i].Id</p>
+                        </td>
+                        <td>
+                            <p>@Model[i].UserName</p>
+                        </td>
+                        <td>
+                            <p>@Model[i].EMail</p>
+                        </td>
+                        <td>
+                            <p>@Model[i].IsBlocked</p>
+                        </td>
+                        <td>
+                            <p>@Model[i].IsAdmin</p>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        }
+    </div>
+    @Html.ActionLink("Back", "MainPage", "Home")
+</body>
+</html>
