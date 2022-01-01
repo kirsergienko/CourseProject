@@ -13,7 +13,23 @@ namespace CourseProject.Services
         {
             return context.Users.ToList();
         }
-        
+
+        public int AddItem(Item item)
+        {
+            context.Items.Add(item);
+            context.SaveChanges();
+            return item.Id;
+        }
+
+        public void AddValues(AddItemModel item)
+        {
+            context.IntValues.AddRange(item.IntValues);
+            context.BoolValues.AddRange(item.BoolValues);
+            context.StringValues.AddRange(item.StringValues);
+            context.DateValues.AddRange(item.DateValues);
+            context.SaveChanges();
+        }
+
         public void AddCollection(Collection collection)
         {
             context.Collections.Add(collection);
@@ -63,6 +79,11 @@ namespace CourseProject.Services
         public Collection GetCollection(Collection collection)
         {
             return context.Collections.FirstOrDefault(x => x.Title == collection.Title);
+        }
+
+        public Collection GetCollection(int id)
+        {
+            return context.Collections.FirstOrDefault(x => x.Id == id);
         }
     }
 }

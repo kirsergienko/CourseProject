@@ -23,16 +23,12 @@ namespace CourseProject.Models
 
         public int ItemsCount { get; set; }
 
-        [IsCount]
         public int IntValuesCount { get; set; }
 
-        [IsCount]
         public int BoolValuesCount { get; set; }
 
-        [IsCount]
         public int StringValuesCount { get; set; }
 
-        [IsCount]
         public int DateValuesCount { get; set; }
     }
 }

@@ -84,7 +84,66 @@ namespace CourseProject.Controllers
 
         public ActionResult AddCollection()
         {
-            return GenerateAddCollectinoView();
+            return GenerateAddCollectionView();
+        }
+
+        public ActionResult AddItem(int id)
+        {
+            var collection = db.GetCollection(id);
+            UserModel user = SetCurrentUser();
+            if (!CurrentUserCheck(user) || !user.IsAdmin || user.Id != collection.UserId)
+            {
+                return View("Login");
+            }
+            return View(InitialAddItemModel(collection));
+        }
+
+        [HttpPost]
+        public ActionResult AddItem(AddItemModel item)
+        {
+            UserModel user = SetCurrentUser();
+            if (!CurrentUserCheck(user) || !user.IsAdmin)
+            {
+                return View("Login");
+            }
+            db.AddValues(item);
+            return View("ShowCollection", db.GetCollection(item.CollectionId));
+        }
+
+        private AddItemModel InitialAddItemModel(Collection collection)
+        {
+            AddItemModel item = new AddItemModel();
+            item.CollectionId = collection.Id;
+            item.BoolValues = new List<BoolValue>();
+            for (int i = 0; i < collection.BoolValuesCount; i++)
+            {
+                item.BoolValues.Add(new BoolValue { });
+            }
+            item.StringValues = new List<StringValue>();
+            for (int i = 0; i < collection.StringValuesCount; i++)
+            {
+                item.StringValues.Add(new StringValue { });
+            }
+            item.IntValues = new List<IntValue>();
+            for (int i = 0; i < collection.IntValuesCount; i++)
+            {
+                item.IntValues.Add(new IntValue { });
+            }
+            item.DateValues = new List<DateValue>();
+            for (int i = 0; i < collection.DateValuesCount; i++)
+            {
+                item.DateValues.Add(new DateValue { });
+            }
+            ViewBag.Title = collection.Title;
+            ViewBag.ItemId = db.AddItem(new Item { CollectionId = collection.Id });
+            return item;
+        }
+
+        public ActionResult ShowCollection(int id)
+        {
+            var user = SetCurrentUser();
+            ViewBag.CurrentUserId = user.Id > 0 ? user.Id : -1;
+            return View(db.GetCollection(id));
         }
 
         [HttpPost]
@@ -99,16 +158,17 @@ namespace CourseProject.Controllers
                 }
                 collection.UserId = user.Id;
                 db.AddCollection(collection);
-                return View("ShowCollection");
+                ViewBag.CurrentUserId = user.Id > 0 ? user.Id : -1;
+                return View("ShowCollection", db.GetCollection(collection));
             }
             else
             {
-                return GenerateAddCollectinoView();
+                return GenerateAddCollectionView();
             }
         }
 
 
-        private ActionResult GenerateAddCollectinoView()
+        private ActionResult GenerateAddCollectionView()
         {
             UserModel user = SetCurrentUser();
             if (!CurrentUserCheck(user) || !user.IsAdmin)
@@ -233,7 +293,6 @@ namespace CourseProject.Controllers
             if (user == null)
             {
                 ViewBag.IsAdmin = false;
-                ViewBag.CurrentUser = "guest";
                 ViewBag.IsNotGuest = false;
                 return null;
             }

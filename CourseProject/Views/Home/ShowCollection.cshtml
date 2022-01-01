@@ -1,1 +1,64 @@
-﻿
+﻿@model CourseProject.Models.Collection
+
+<div>
+    <h4>Collection</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Title:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            Collection picture:
+        </dt>
+
+        <dd>
+            <img src="@Model.Image" width="100" height="100"/>
+        </dd>
+
+        <dt>
+            Description:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            Theme:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Theme)
+        </dd>
+
+        <dt>
+            Items Count:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemsCount)
+        </dd>
+    </dl>
+    @if(ViewBag.CurrentUserId == Model.UserId)
+    {
+        <table class="table-condensed">
+            <tr>
+                <td>
+                    @Html.ActionLink("Add Item", "AddItem", new { id = Model.Id })
+                </td>
+                <td>
+                    @Html.ActionLink("Delete collection", "DeleteCollection", new { id = Model.Id })
+                </td>
+            </tr>
+        </table>
+    }
+
+</div>
+<p>
+    @Html.ActionLink("Home", "MainPage")
+</p>
