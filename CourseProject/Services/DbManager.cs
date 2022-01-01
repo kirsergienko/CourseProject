@@ -14,6 +14,27 @@ namespace CourseProject.Services
             return context.Users.ToList();
         }
 
+        public List<AddItemModel> GetItems(int collectionId)
+        {
+            var items = new List<AddItemModel>();
+            var temp = context.Items.Where(x => x.CollectionId == collectionId).ToList();
+            foreach (var item in temp)
+            {
+                var newItem = new AddItemModel();
+                newItem.CollectionId = item.CollectionId;
+                newItem.IntValues = new List<IntValue>();
+                newItem.BoolValues = new List<BoolValue>();
+                newItem.StringValues = new List<StringValue>();
+                newItem.DateValues = new List<DateValue>();
+                newItem.IntValues.AddRange(context.IntValues.Where(x => x.ItemId == item.Id).ToList());
+                newItem.BoolValues.AddRange(context.BoolValues.Where(x => x.ItemId == item.Id).ToList());
+                newItem.StringValues.AddRange(context.StringValues.Where(x => x.ItemId == item.Id).ToList());
+                newItem.DateValues.AddRange(context.DateValues.Where(x => x.ItemId == item.Id).ToList());
+                items.Add(newItem);
+            }
+            return items;
+        }
+
         public int AddItem(Item item)
         {
             context.Items.Add(item);

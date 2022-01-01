@@ -107,6 +107,7 @@ namespace CourseProject.Controllers
                 return View("Login");
             }
             db.AddValues(item);
+            ViewBag.Items = db.GetItems(item.CollectionId);
             return View("ShowCollection", db.GetCollection(item.CollectionId));
         }
 
@@ -142,7 +143,12 @@ namespace CourseProject.Controllers
         public ActionResult ShowCollection(int id)
         {
             var user = SetCurrentUser();
-            ViewBag.CurrentUserId = user.Id > 0 ? user.Id : -1;
+            if (user != null)
+            {
+                ViewBag.CurrentUserId = user.Id;
+            }
+            else ViewBag.CurrentUserId = -1;
+            ViewBag.Items = db.GetItems(id);
             return View(db.GetCollection(id));
         }
 
@@ -159,7 +165,8 @@ namespace CourseProject.Controllers
                 collection.UserId = user.Id;
                 db.AddCollection(collection);
                 ViewBag.CurrentUserId = user.Id > 0 ? user.Id : -1;
-                return View("ShowCollection", db.GetCollection(collection));
+                ViewBag.Items = db.GetItems(collection.Id);
+                return View("ShowCollection", db.GetCollection(collection.Id));
             }
             else
             {

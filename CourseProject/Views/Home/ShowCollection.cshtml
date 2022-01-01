@@ -17,7 +17,15 @@
         </dt>
 
         <dd>
-            <img src="@Model.Image" width="100" height="100"/>
+            @if (String.IsNullOrEmpty(Model.Image))
+            {
+                <img src="https://res.cloudinary.com/de7r0q8df/image/upload/v1641019399/MyImages/1_4eQuCfeAhUog26R07bA4lg_xwmhm3.png" width="150" height="100" />
+            }
+            else
+            {
+                <img src="@Model.Image" width="100" height="100" />
+            }
+
         </dd>
 
         <dt>
@@ -44,7 +52,7 @@
             @Html.DisplayFor(model => model.ItemsCount)
         </dd>
     </dl>
-    @if(ViewBag.CurrentUserId == Model.UserId)
+    @if (ViewBag.CurrentUserId == Model.UserId)
     {
         <table class="table-condensed">
             <tr>
@@ -57,8 +65,91 @@
             </tr>
         </table>
     }
-
 </div>
+@if (ViewBag.Items.Count > 0)
+{
+    <h4>
+        Items:
+    </h4>
+}
+
+
+@for (int i = 0; i < ViewBag.Items.Count; i++)
+{
+    <p>Item @(i+1)</p>
+    <table class="table-bordered">
+        <tr>
+            <td>
+                Type
+            </td>
+            <td>
+                Name
+            </td>
+            <td>
+                Value
+            </td>
+        </tr>[i]
+        <tr>
+            <td>
+                Int
+            </td>
+            @for (int j = 0; j < ViewBag.Items[i].IntValues.Count; j++)
+            {
+                <td>
+                    @ViewBag.Items[i].IntValues[j].Name
+                </td>
+                <td>
+                    @ViewBag.Items[i].IntValues[j].Value
+                </td>
+            }
+        </tr>
+        <tr>
+            <td>
+                Bool
+            </td>
+            @for (int j = 0; j < ViewBag.Items[i].BoolValues.Count; j++)
+            {
+                <td>
+                    @ViewBag.Items[i].BoolValues[j].Name
+                </td>
+                <td>
+                    @ViewBag.Items[i].BoolValues[j].Value
+                </td>
+            }
+        </tr>
+        <tr>
+            <td>
+                String
+            </td>
+            @for (int j = 0; j < ViewBag.Items[i].StringValues.Count; j++)
+            {
+                <td>
+                    @ViewBag.Items[i].StringValues[j].Name
+                </td>
+                <td>
+                    @ViewBag.Items[i].StringValues[j].Value
+                </td>
+            }
+        </tr>
+        <tr>
+            <td>
+                Date
+            </td>
+            @for (int j = 0; j < ViewBag.Items[i].DateValues.Count; j++)
+            {
+                <td>
+                    @ViewBag.Items[i].DateValues[j].Name
+                </td>
+                <td>
+                    @ViewBag.Items[i].DateValues[j].Value
+                </td>
+            }
+        </tr>
+    </table>
+    <hr />
+}
+
+
 <p>
     @Html.ActionLink("Home", "MainPage")
 </p>
