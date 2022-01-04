@@ -52,7 +52,7 @@
             @ViewBag.Items.Count
         </dd>
     </dl>
-    @if (ViewBag.CurrentUserId == Model.UserId)
+    @if (ViewBag.CurrentUserId == Model.UserId || ViewBag.IsAdmin)
     {
         <table class="table-condensed">
             <tr>
@@ -149,7 +149,7 @@
             }
         </tr>
     </table>
-    if (ViewBag.CurrentUserId == Model.UserId)
+    if (ViewBag.CurrentUserId == Model.UserId || ViewBag.IsAdmin)
     {
         <table class="table-condensed">
             <tr>
@@ -158,6 +158,9 @@
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "EditItem", new { id = ViewBag.Items[i].Id })
+                </td>
+                <td>
+                    @Html.ActionLink("Show", "ShowItem", new { id = ViewBag.Items[i].Id })
                 </td>
             </tr>
         </table>

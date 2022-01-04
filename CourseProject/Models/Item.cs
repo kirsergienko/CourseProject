@@ -10,5 +10,7 @@ namespace CourseProject.Models
         public int Id { get; set; }
 
         public int CollectionId { get; set; }
+
+        public DateTime LastChange { get; set; }
     }
 }

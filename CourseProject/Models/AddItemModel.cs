@@ -9,7 +9,11 @@ namespace CourseProject.Models
     {
         public int Id { get; set; }
 
+        public DateTime LastChanged { get; set; }
+
         public int CollectionId { get; set; }
+
+        public string Tags { get; set; }
 
         public List<IntValue> IntValues { get; set; }
 

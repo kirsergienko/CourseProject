@@ -30,6 +30,7 @@ namespace CourseProject.Services
         {
             var newItem = new AddItemModel();
             newItem.Id = item.Id;
+            newItem.LastChanged = item.LastChange;
             newItem.CollectionId = item.CollectionId;
             newItem.IntValues = new List<IntValue>();
             newItem.BoolValues = new List<BoolValue>();
@@ -57,6 +58,7 @@ namespace CourseProject.Services
 
         public int AddItem(Item item)
         {
+            item.LastChange = DateTime.Now;
             context.Items.Add(item);
             context.SaveChanges();
             return item.Id;

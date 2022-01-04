@@ -91,7 +91,7 @@ namespace CourseProject.Controllers
         {
             var collection = db.GetCollection(id);
             UserModel user = SetCurrentUser();
-            if (!CurrentUserCheck(user) || user.Id != collection.UserId)
+            if (!CurrentUserCheck(user) || user.Id != collection.UserId || user.IsAdmin == false)
             {
                 return View("Login");
             }
@@ -107,6 +107,7 @@ namespace CourseProject.Controllers
                 return View("Login");
             }
             db.AddValues(item);
+            //add tags
             ViewBag.CurrentUserId = user.Id;
             ViewBag.Items = db.GetItems(item.CollectionId);
             return View("ShowCollection", db.GetCollection(item.CollectionId));
@@ -117,11 +118,19 @@ namespace CourseProject.Controllers
             var item = db.GetItem(id);
             var collection = db.GetCollection(item.CollectionId);
             UserModel user = SetCurrentUser();
-            if (!CurrentUserCheck(user) || user.Id != collection.UserId)
+            if (!CurrentUserCheck(user) || user.Id != collection.UserId || user.IsAdmin == false)
             {
                 return View("Login");
             }
-            return View(db.GetItem(id));    
+            return View(item);    
+        }
+
+        public ActionResult ShowItem(int id)
+        {
+            var item = db.GetItem(id);
+            var collection = db.GetCollection(item.CollectionId);
+            UserModel user = SetCurrentUser();
+            return View(item);
         }
 
         [HttpPost]
@@ -171,7 +180,7 @@ namespace CourseProject.Controllers
         {
             var collection = db.GetCollection(id);
             UserModel user = SetCurrentUser();
-            if (!CurrentUserCheck(user) || user.Id != collection.UserId)
+            if (!CurrentUserCheck(user) || user.Id != collection.UserId || user.IsAdmin == false)
             {
                 return View("Login");
             }
@@ -184,7 +193,7 @@ namespace CourseProject.Controllers
             var item = db.GetItem(id);
             var collection = db.GetCollection(item.CollectionId);
             UserModel user = SetCurrentUser();
-            if (!CurrentUserCheck(user) || user.Id != collection.UserId)
+            if (!CurrentUserCheck(user) || user.Id != collection.UserId || user.IsAdmin == false)
             {
                 return View("Login");
             }
@@ -210,7 +219,7 @@ namespace CourseProject.Controllers
         {
             UserModel user = SetCurrentUser();
             var collection = db.GetCollection(id);
-            if (!CurrentUserCheck(user) || user.Id != collection.UserId)
+            if (!CurrentUserCheck(user) || user.Id != collection.UserId || user.IsAdmin == false)
             {
                 return View("Login");
             }

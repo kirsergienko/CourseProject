@@ -229,6 +229,10 @@
     <Compile Include="Migrations\202201010335182_s.designer.cs">
       <DependentUpon>202201010335182_s.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201040711200_LastChange.cs" />
+    <Compile Include="Migrations\202201040711200_LastChange.designer.cs">
+      <DependentUpon>202201040711200_LastChange.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AddItemModel.cs" />
     <Compile Include="Models\ApplicationContext.cs" />
@@ -349,6 +353,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201010335182_s.resx">
       <DependentUpon>202201010335182_s.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201040711200_LastChange.resx">
+      <DependentUpon>202201040711200_LastChange.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

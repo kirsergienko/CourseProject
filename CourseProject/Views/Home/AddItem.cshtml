@@ -78,10 +78,12 @@
             </tr>
         }
     </table>
-    <p>(Format: Month / Day / Year Hour: Minute: Secong PM/ AM.Time is optional)</p> 
-@Html.HiddenFor(model => model.Id)
+    <p>(Format: Month / Day / Year Hour: Minute: Secong PM/ AM.Time is optional)</p>
+    @Html.EditorFor(model => model.Tags, new { id = "tags" })
+    @Html.HiddenFor(model => model.Tags)
+    @Html.HiddenFor(model => model.Id)
     @Html.HiddenFor(model => model.CollectionId)
-<input type="submit" value="Add" />
+    <input type="submit" value="Add" />
 }
 
 <div>
