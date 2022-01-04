@@ -10,6 +10,26 @@ namespace CourseProject.Services
     {
         ApplicationContext context = new ApplicationContext();
 
+        public void AddTags(string tagString, int itemId)
+        {
+            if (!String.IsNullOrEmpty(tagString))
+            {
+                List<string> temp = tagString.Split(' ').ToList();
+                List<Tag> tags = new List<Tag>();
+                foreach (var t in temp)
+                {
+                    tags.Add(new Tag { TagName = t, ItemId = itemId });
+                }
+                context.Tags.AddRange(tags);
+                context.SaveChanges();
+            }
+        }
+
+        public List<Tag> GetTagList()
+        {
+            return context.Tags.ToList();
+        }
+
         public List<UserModel> ReturnUsers()
         {
             return context.Users.ToList();
@@ -30,6 +50,8 @@ namespace CourseProject.Services
         {
             var newItem = new AddItemModel();
             newItem.Id = item.Id;
+            var tags = context.Tags.Where(x => x.ItemId == item.Id).Select(x=>x.TagName);
+            newItem.Tags = String.Join(" ", tags.ToArray());
             newItem.LastChanged = item.LastChange;
             newItem.CollectionId = item.CollectionId;
             newItem.IntValues = new List<IntValue>();
@@ -86,6 +108,15 @@ namespace CourseProject.Services
         {
             RemoveValues(item.Id);
             AddValues(item);
+            RemoveTags(item.Id);
+            AddTags(item.Tags, item.Id);
+            context.SaveChanges();
+        }
+
+        private void RemoveTags(int id)
+        {
+            var c = context.Tags.Where(x => x.ItemId == id);
+            context.Tags.RemoveRange(c);
             context.SaveChanges();
         }
 

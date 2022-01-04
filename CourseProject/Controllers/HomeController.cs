@@ -107,7 +107,7 @@ namespace CourseProject.Controllers
                 return View("Login");
             }
             db.AddValues(item);
-            //add tags
+            db.AddTags(item.Tags, item.Id);
             ViewBag.CurrentUserId = user.Id;
             ViewBag.Items = db.GetItems(item.CollectionId);
             return View("ShowCollection", db.GetCollection(item.CollectionId));
@@ -173,6 +173,7 @@ namespace CourseProject.Controllers
             }
             ViewBag.Title = collection.Title;
             item.Id = db.AddItem(new Item { CollectionId = collection.Id });
+            ViewBag.Id = item.Id;
             return item;
         }
 
