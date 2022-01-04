@@ -301,6 +301,8 @@
     <Content Include="Views\Home\AddCollection.cshtml" />
     <Content Include="Views\Home\ShowCollection.cshtml" />
     <Content Include="Views\Home\AddItem.cshtml" />
+    <Content Include="Views\Home\EditCollection.cshtml" />
+    <Content Include="Views\Home\EditItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

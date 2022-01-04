@@ -91,7 +91,7 @@ namespace CourseProject.Controllers
         {
             var collection = db.GetCollection(id);
             UserModel user = SetCurrentUser();
-            if (!CurrentUserCheck(user) || !user.IsAdmin || user.Id != collection.UserId)
+            if (!CurrentUserCheck(user) || user.Id != collection.UserId)
             {
                 return View("Login");
             }
@@ -102,11 +102,38 @@ namespace CourseProject.Controllers
         public ActionResult AddItem(AddItemModel item)
         {
             UserModel user = SetCurrentUser();
-            if (!CurrentUserCheck(user) || !user.IsAdmin)
+            if (!CurrentUserCheck(user))
             {
                 return View("Login");
             }
             db.AddValues(item);
+            ViewBag.CurrentUserId = user.Id;
+            ViewBag.Items = db.GetItems(item.CollectionId);
+            return View("ShowCollection", db.GetCollection(item.CollectionId));
+        }
+
+        public ActionResult EditItem(int id)
+        {
+            var item = db.GetItem(id);
+            var collection = db.GetCollection(item.CollectionId);
+            UserModel user = SetCurrentUser();
+            if (!CurrentUserCheck(user) || user.Id != collection.UserId)
+            {
+                return View("Login");
+            }
+            return View(db.GetItem(id));    
+        }
+
+        [HttpPost]
+        public ActionResult EditItem(AddItemModel item)
+        {
+            UserModel user = SetCurrentUser();
+            if (!CurrentUserCheck(user))
+            {
+                return View("Login");
+            }
+            db.EditItem(item);
+            ViewBag.CurrentUserId = user.Id;
             ViewBag.Items = db.GetItems(item.CollectionId);
             return View("ShowCollection", db.GetCollection(item.CollectionId));
         }
@@ -136,8 +163,35 @@ namespace CourseProject.Controllers
                 item.DateValues.Add(new DateValue { });
             }
             ViewBag.Title = collection.Title;
-            ViewBag.ItemId = db.AddItem(new Item { CollectionId = collection.Id });
+            item.Id = db.AddItem(new Item { CollectionId = collection.Id });
             return item;
+        }
+
+        public ActionResult DeleteCollection(int id)
+        {
+            var collection = db.GetCollection(id);
+            UserModel user = SetCurrentUser();
+            if (!CurrentUserCheck(user) || user.Id != collection.UserId)
+            {
+                return View("Login");
+            }
+            db.RemoveCollection(id);
+            return View("MainPage");
+        }
+
+        public ActionResult DeleteItem(int id)
+        {
+            var item = db.GetItem(id);
+            var collection = db.GetCollection(item.CollectionId);
+            UserModel user = SetCurrentUser();
+            if (!CurrentUserCheck(user) || user.Id != collection.UserId)
+            {
+                return View("Login");
+            }
+            db.RemoveItem(id);
+            ViewBag.CurrentUserId = user.Id;
+            ViewBag.Items = db.GetItems(collection.Id);
+            return View("ShowCollection", collection);
         }
 
         public ActionResult ShowCollection(int id)
@@ -152,18 +206,53 @@ namespace CourseProject.Controllers
             return View(db.GetCollection(id));
         }
 
+        public ActionResult EditCollection(int id)
+        {
+            UserModel user = SetCurrentUser();
+            var collection = db.GetCollection(id);
+            if (!CurrentUserCheck(user) || user.Id != collection.UserId)
+            {
+                return View("Login");
+            }
+            InitalViewBagforAddCollection(user);
+            return View("EditCollection", collection);
+        }
+        
+        [HttpPost]
+        public ActionResult EditCollection(Collection collection)
+        {
+            ModelState.Remove("Title");
+            if (ModelState.IsValid)
+            {
+                UserModel user = SetCurrentUser();
+                if (!CurrentUserCheck(user))
+                {
+                    return View("Login");
+                }
+                db.EditCollection(collection);
+                ViewBag.CurrentUserId = user.Id > 0 ? user.Id : -1;
+                ViewBag.Items = db.GetItems(collection.Id);
+                return View("ShowCollection", db.GetCollection(collection.Id));
+            }
+            else
+            {
+                return EditCollection(collection.Id);
+            }
+        }
+
         [HttpPost]
         public ActionResult AddCollection(Collection collection)
         {
             if(ModelState.IsValid)
             {
                 UserModel user = SetCurrentUser();
-                if (!CurrentUserCheck(user) || !user.IsAdmin)
+                if (!CurrentUserCheck(user))
                 {
                     return View("Login");
                 }
                 collection.UserId = user.Id;
-                db.AddCollection(collection);
+                collection.ItemsCount++;
+                db.EditCollection(collection);
                 ViewBag.CurrentUserId = user.Id > 0 ? user.Id : -1;
                 ViewBag.Items = db.GetItems(collection.Id);
                 return View("ShowCollection", db.GetCollection(collection.Id));
@@ -174,14 +263,19 @@ namespace CourseProject.Controllers
             }
         }
 
-
         private ActionResult GenerateAddCollectionView()
         {
             UserModel user = SetCurrentUser();
-            if (!CurrentUserCheck(user) || !user.IsAdmin)
+            if (!CurrentUserCheck(user))
             {
                 return View("Login");
             }
+            InitalViewBagforAddCollection(user);
+            return View();
+        }
+
+        private void InitalViewBagforAddCollection(UserModel user)
+        {
             ViewBag.UserId = user.Id;
             ViewBag.Themes = new List<string>
             {
@@ -193,7 +287,6 @@ namespace CourseProject.Controllers
                 "Cars",
                 "Else"
             };
-            return View();
         }
 
         [HttpPost]

@@ -1,7 +1,7 @@
 ﻿@model CourseProject.Models.AddItemModel
 
 
-<h4>Add item to @ViewBag.Title</h4>
+<h4>Edit item</h4>
 @using (Html.BeginForm())
 {
     <table class="table-bordered">
@@ -69,25 +69,24 @@
                     @Html.EditorFor(model => model.DateValues[i].Name)
                 </td>
                 <td>
-                    @Html.EditorFor(model => model.DateValues[i].Value)
+                    @Html.EditorFor(model => model.DateValues[i].Value, new { Value = Model.DateValues[i].Value })
                 </td>
                 @Html.HiddenFor(model => model.DateValues[i].Name)
                 @Html.HiddenFor(model => model.DateValues[i].Value)
-                @Html.ValidationMessageFor(model => model.DateValues[i].Value)
                 @Html.HiddenFor(model => model.DateValues[i].ItemId, new { id = "itemid", Value = Model.Id })
             </tr>
         }
     </table>
-    <p>(Format: Month / Day / Year Hour: Minute: Secong PM/ AM.Time is optional)</p> 
-@Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.Id)
     @Html.HiddenFor(model => model.CollectionId)
-<input type="submit" value="Add" />
+    <input type="submit" value="Edit" />
 }
 
 <div>
-    @Html.ActionLink("Cancel", "DeleteItem", new { id = Model.Id })
+    @Html.ActionLink("Cancel", "ShowCollection", new { id = Model.CollectionId })
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+

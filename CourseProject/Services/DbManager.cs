@@ -1,6 +1,7 @@
 ﻿using CourseProject.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 
 namespace CourseProject.Services
@@ -20,19 +21,38 @@ namespace CourseProject.Services
             var temp = context.Items.Where(x => x.CollectionId == collectionId).ToList();
             foreach (var item in temp)
             {
-                var newItem = new AddItemModel();
-                newItem.CollectionId = item.CollectionId;
-                newItem.IntValues = new List<IntValue>();
-                newItem.BoolValues = new List<BoolValue>();
-                newItem.StringValues = new List<StringValue>();
-                newItem.DateValues = new List<DateValue>();
-                newItem.IntValues.AddRange(context.IntValues.Where(x => x.ItemId == item.Id).ToList());
-                newItem.BoolValues.AddRange(context.BoolValues.Where(x => x.ItemId == item.Id).ToList());
-                newItem.StringValues.AddRange(context.StringValues.Where(x => x.ItemId == item.Id).ToList());
-                newItem.DateValues.AddRange(context.DateValues.Where(x => x.ItemId == item.Id).ToList());
-                items.Add(newItem);
+                items.Add(InitialItem(item));
             }
             return items;
+        }
+
+        private AddItemModel InitialItem(Item item)
+        {
+            var newItem = new AddItemModel();
+            newItem.Id = item.Id;
+            newItem.CollectionId = item.CollectionId;
+            newItem.IntValues = new List<IntValue>();
+            newItem.BoolValues = new List<BoolValue>();
+            newItem.StringValues = new List<StringValue>();
+            newItem.DateValues = new List<DateValue>();
+            newItem.IntValues.AddRange(context.IntValues.Where(x => x.ItemId == item.Id).ToList());
+            newItem.BoolValues.AddRange(context.BoolValues.Where(x => x.ItemId == item.Id).ToList());
+            newItem.StringValues.AddRange(context.StringValues.Where(x => x.ItemId == item.Id).ToList());
+            newItem.DateValues.AddRange(context.DateValues.Where(x => x.ItemId == item.Id).ToList());
+            return newItem;
+        }
+
+        public AddItemModel GetItem(int id)
+        {
+            var i = context.Items.FirstOrDefault(x => x.Id == id);
+            return InitialItem(i);
+        }
+
+        public void RemoveItem(int id)
+        {
+            var c = context.Items.First(x => x.Id == id);
+            context.Items.Remove(c);
+            context.SaveChanges();
         }
 
         public int AddItem(Item item)
@@ -44,17 +64,36 @@ namespace CourseProject.Services
 
         public void AddValues(AddItemModel item)
         {
-            context.IntValues.AddRange(item.IntValues);
-            context.BoolValues.AddRange(item.BoolValues);
-            context.StringValues.AddRange(item.StringValues);
-            context.DateValues.AddRange(item.DateValues);
+            if (item.IntValues != null) context.IntValues.AddRange(item.IntValues);
+            if (item.BoolValues != null) context.BoolValues.AddRange(item.BoolValues);
+            if (item.StringValues != null) context.StringValues.AddRange(item.StringValues);
+            if (item.DateValues != null) context.DateValues.AddRange(item.DateValues);
             context.SaveChanges();
         }
 
-        public void AddCollection(Collection collection)
+        private void RemoveValues(int id)
         {
-            context.Collections.Add(collection);
+            context.IntValues.RemoveRange(context.IntValues.Where(x => x.ItemId == id));
+            context.BoolValues.RemoveRange(context.BoolValues.Where(x => x.ItemId == id));
+            context.StringValues.RemoveRange(context.StringValues.Where(x => x.ItemId == id));
+            context.DateValues.RemoveRange(context.DateValues.Where(x => x.ItemId == id));
             context.SaveChanges();
+        }
+
+        public void EditItem(AddItemModel item)
+        {
+            RemoveValues(item.Id);
+            AddValues(item);
+            context.SaveChanges();
+        }
+
+        public void EditCollection(Collection collection)
+        {
+            var c = context.Collections.FirstOrDefault(x => x.Title == collection.Title);
+            context.Entry(c).CurrentValues.SetValues(collection);
+            context.Configuration.ValidateOnSaveEnabled = false;
+            context.SaveChanges();
+            context.Configuration.ValidateOnSaveEnabled = true;
         }
 
         public void AddUser(UserModel user)
@@ -105,6 +144,13 @@ namespace CourseProject.Services
         public Collection GetCollection(int id)
         {
             return context.Collections.FirstOrDefault(x => x.Id == id);
+        }
+
+        public void RemoveCollection(int id)
+        {
+            var c = context.Collections.First(x => x.Id == id);
+            context.Collections.Remove(c);
+            context.SaveChanges();
         }
     }
 }

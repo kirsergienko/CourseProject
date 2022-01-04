@@ -1,0 +1,92 @@
+﻿@model CourseProject.Models.Collection
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Edit Collection</title>
+    <link href="@Url.Content("~/Content/site.css")" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/dropzone/dropzone.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <link href="~/Scripts/dropzone/dropzone.css" rel="stylesheet" />
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Edit Collection @Model.Title</h4>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Title, new { @id = "title" })
+        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+        <div>
+            Desciption:
+            @Html.EditorFor(model => model.Description)
+        </div>
+        <p>Upload image for collection:</p>
+        <div class="dropzone" id="my-dropzone" method="post"></div>
+        @Html.HiddenFor(model => model.Image, new { id = "img" })
+        <div>
+            <button type="button" id="submit-all"> Upload </button>
+        </div>
+        @Html.HiddenFor(model => model.UserId, new { id = "userId", Value = ViewBag.UserId })
+        <div>
+            Theme:
+            @Html.DropDownListFor(model => model.Theme, (IEnumerable<SelectListItem>)new SelectList(ViewBag.Themes))
+        </div>
+        <h4>Items settings:</h4>
+        <div>
+            Int values count:
+            @Html.EditorFor(model => model.IntValuesCount)
+            @Html.ValidationMessageFor(model => model.IntValuesCount, "", new { @class = "text-danger" })
+        </div>
+        <div>
+            String values count:
+            @Html.EditorFor(model => model.StringValuesCount)
+            @Html.ValidationMessageFor(model => model.StringValuesCount, "", new { @class = "text-danger" })
+        </div>
+        <div>
+            Bool values count:
+            @Html.EditorFor(model => model.BoolValuesCount)
+            @Html.ValidationMessageFor(model => model.BoolValuesCount, "", new { @class = "text-danger" })
+        </div>
+        <div>
+            DateTime values count:
+            @Html.EditorFor(model => model.DateValuesCount)
+            @Html.ValidationMessageFor(model => model.DateValuesCount, "", new { @class = "text-danger" })
+        </div>
+    </div>
+        <div>
+            <button type="submit"> Apply </button>
+        </div>
+    }
+</body>
+</html>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        Dropzone.options.myDropzone = {
+            url: "@Url.Action("Upload", "Home")",
+            maxFiles: 1,
+            addRemoveLinks: true,
+            autoProcessQueue: false,
+            uploadMultiple: false,
+            parallelUploads: 1,
+
+            init: function () {
+                var submitButton = document.querySelector("#submit-all")
+                myDropzone = this;
+
+                submitButton.addEventListener("click", function () {
+                    myDropzone.processQueue();
+                });
+                this.on("complete", function (data) {
+                    var res = eval('(' + data.xhr.responseText + ')');
+                    $('#img').val(res.Message);
+                });
+            }
+        };
+    </script>
+}
+
+

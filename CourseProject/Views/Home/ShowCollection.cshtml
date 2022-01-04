@@ -49,7 +49,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ItemsCount)
+            @ViewBag.Items.Count
         </dd>
     </dl>
     @if (ViewBag.CurrentUserId == Model.UserId)
@@ -61,6 +61,9 @@
                 </td>
                 <td>
                     @Html.ActionLink("Delete collection", "DeleteCollection", new { id = Model.Id })
+                </td>
+                <td>
+                    @Html.ActionLink("Edit collection", "EditCollection", new { id = Model.Id })
                 </td>
             </tr>
         </table>
@@ -88,7 +91,7 @@
             <td>
                 Value
             </td>
-        </tr>[i]
+        </tr>
         <tr>
             <td>
                 Int
@@ -141,11 +144,24 @@
                     @ViewBag.Items[i].DateValues[j].Name
                 </td>
                 <td>
-                    @ViewBag.Items[i].DateValues[j].Value
+                    @ViewBag.Items[i].DateValues[j].Value.ToString("dd MMMM yyyy")
                 </td>
             }
         </tr>
     </table>
+    if (ViewBag.CurrentUserId == Model.UserId)
+    {
+        <table class="table-condensed">
+            <tr>
+                <td>
+                    @Html.ActionLink("Delete", "DeleteItem", new { id = ViewBag.Items[i].Id })
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditItem", new { id = ViewBag.Items[i].Id })
+                </td>
+            </tr>
+        </table>
+    }
     <hr />
 }
 

@@ -7,6 +7,8 @@ namespace CourseProject.Models
 {
     public class AddItemModel
     {
+        public int Id { get; set; }
+
         public int CollectionId { get; set; }
 
         public List<IntValue> IntValues { get; set; }
