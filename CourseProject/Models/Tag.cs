@@ -1,4 +1,6 @@
-﻿namespace CourseProject.Models
+﻿using System;
+
+namespace CourseProject.Models
 {
     public class Tag
     {

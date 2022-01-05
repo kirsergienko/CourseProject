@@ -262,7 +262,7 @@ namespace CourseProject.Controllers
                 }
                 collection.UserId = user.Id;
                 collection.ItemsCount++;
-                db.EditCollection(collection);
+                db.AddCollection(collection);
                 ViewBag.CurrentUserId = user.Id > 0 ? user.Id : -1;
                 ViewBag.Items = db.GetItems(collection.Id);
                 return View("ShowCollection", db.GetCollection(collection.Id));
@@ -281,7 +281,7 @@ namespace CourseProject.Controllers
                 return View("Login");
             }
             InitalViewBagforAddCollection(user);
-            return View();
+            return View("AddCollection");
         }
 
         private void InitalViewBagforAddCollection(UserModel user)
@@ -419,6 +419,12 @@ namespace CourseProject.Controllers
                 return false;
             }
             return true;
+        }
+
+        public JsonResult Tags(string search)
+        {
+            var Tags = db.GetTagList().Where(x => x.TagName.StartsWith(search)).ToList();
+            return new JsonResult { Data = Tags, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
     }

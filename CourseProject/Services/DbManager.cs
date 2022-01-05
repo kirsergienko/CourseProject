@@ -120,6 +120,12 @@ namespace CourseProject.Services
             context.SaveChanges();
         }
 
+        public void AddCollection(Collection collection)
+        {
+            context.Collections.Add(collection);
+            context.SaveChanges();
+        }
+
         public void EditCollection(Collection collection)
         {
             var c = context.Collections.FirstOrDefault(x => x.Title == collection.Title);

@@ -1,6 +1,8 @@
 ﻿@model CourseProject.Models.AddItemModel
 
-
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery-ui.min.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
 <h4>Add item to @ViewBag.Title</h4>
 @using (Html.BeginForm())
 {
@@ -81,7 +83,7 @@
     <p>(Format: Month / Day / Year Hour: Minute: Secong PM/ AM.Time is optional)</p>
     @Html.EditorFor(model => model.Tags, new { id = "tags" })
     @Html.HiddenFor(model => model.Tags)
-    @Html.HiddenFor(model=>model.Id, new { Value = ViewBag.Id })
+    @Html.HiddenFor(model => model.Id, new { Value = ViewBag.Id })
     @Html.HiddenFor(model => model.CollectionId)
     <input type="submit" value="Add" />
 }
@@ -92,4 +94,24 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+    $("#tags").autocomplete({
+        source: function (request, response) {
+            $ . ajax ({
+                url: '@Url.Action("Tags","Home")',
+                dataType: "json",
+                data: { search: $("#tags").val() },
+                success: function (data) {
+                    response($.map(data, function (item) {
+                        return { label: item.Tag, value: item.Tag };
+                    }));
+                },
+                error: function (xhr, status, error) {
+                    alert("Error");
+                }
+            });
+        }
+    });
+    </script>
 }
+
