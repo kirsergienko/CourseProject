@@ -122,7 +122,7 @@ namespace CourseProject.Controllers
             {
                 return View("Login");
             }
-            return View(item);    
+            return View(item);
         }
 
         public ActionResult ShowItem(int id)
@@ -227,7 +227,7 @@ namespace CourseProject.Controllers
             InitalViewBagforAddCollection(user);
             return View("EditCollection", collection);
         }
-        
+
         [HttpPost]
         public ActionResult EditCollection(Collection collection)
         {
@@ -253,7 +253,7 @@ namespace CourseProject.Controllers
         [HttpPost]
         public ActionResult AddCollection(Collection collection)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 UserModel user = SetCurrentUser();
                 if (!CurrentUserCheck(user))
