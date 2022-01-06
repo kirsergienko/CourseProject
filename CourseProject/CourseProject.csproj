@@ -189,49 +189,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202112281728332_Initial.cs" />
-    <Compile Include="Migrations\202112281728332_Initial.designer.cs">
-      <DependentUpon>202112281728332_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112281835249_collections.cs" />
-    <Compile Include="Migrations\202112281835249_collections.designer.cs">
-      <DependentUpon>202112281835249_collections.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112290031425_itemscount.cs" />
-    <Compile Include="Migrations\202112290031425_itemscount.designer.cs">
-      <DependentUpon>202112290031425_itemscount.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112290045587_ValueName.cs" />
-    <Compile Include="Migrations\202112290045587_ValueName.designer.cs">
-      <DependentUpon>202112290045587_ValueName.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112300447068_valuesCount.cs" />
-    <Compile Include="Migrations\202112300447068_valuesCount.designer.cs">
-      <DependentUpon>202112300447068_valuesCount.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112300449007_valuesCount1.cs" />
-    <Compile Include="Migrations\202112300449007_valuesCount1.designer.cs">
-      <DependentUpon>202112300449007_valuesCount1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112300507347_k.cs" />
-    <Compile Include="Migrations\202112300507347_k.designer.cs">
-      <DependentUpon>202112300507347_k.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112301701279_item.cs" />
-    <Compile Include="Migrations\202112301701279_item.designer.cs">
-      <DependentUpon>202112301701279_item.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112301703171_CollectionId.cs" />
-    <Compile Include="Migrations\202112301703171_CollectionId.designer.cs">
-      <DependentUpon>202112301703171_CollectionId.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202201010335182_s.cs" />
-    <Compile Include="Migrations\202201010335182_s.designer.cs">
-      <DependentUpon>202201010335182_s.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202201040711200_LastChange.cs" />
-    <Compile Include="Migrations\202201040711200_LastChange.designer.cs">
-      <DependentUpon>202201040711200_LastChange.cs</DependentUpon>
+    <Compile Include="Migrations\202201060831073_Initial.cs" />
+    <Compile Include="Migrations\202201060831073_Initial.designer.cs">
+      <DependentUpon>202201060831073_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AddItemModel.cs" />
@@ -324,38 +284,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202112281728332_Initial.resx">
-      <DependentUpon>202112281728332_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112281835249_collections.resx">
-      <DependentUpon>202112281835249_collections.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112290031425_itemscount.resx">
-      <DependentUpon>202112290031425_itemscount.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112290045587_ValueName.resx">
-      <DependentUpon>202112290045587_ValueName.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112300447068_valuesCount.resx">
-      <DependentUpon>202112300447068_valuesCount.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112300449007_valuesCount1.resx">
-      <DependentUpon>202112300449007_valuesCount1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112300507347_k.resx">
-      <DependentUpon>202112300507347_k.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112301701279_item.resx">
-      <DependentUpon>202112301701279_item.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112301703171_CollectionId.resx">
-      <DependentUpon>202112301703171_CollectionId.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202201010335182_s.resx">
-      <DependentUpon>202201010335182_s.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202201040711200_LastChange.resx">
-      <DependentUpon>202201040711200_LastChange.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202201060831073_Initial.resx">
+      <DependentUpon>202201060831073_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class collections : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -13,11 +13,10 @@
                     {
                         Id = c.Int(nullable: false, identity: true),
                         ItemId = c.Int(nullable: false),
+                        Name = c.String(),
                         Value = c.Boolean(nullable: false),
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Items", t => t.ItemId, cascadeDelete: true)
-                .Index(t => t.ItemId);
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.Collections",
@@ -29,6 +28,33 @@
                         Description = c.String(),
                         Theme = c.String(),
                         Image = c.String(),
+                        ItemsCount = c.Int(nullable: false),
+                        IntValuesCount = c.Int(nullable: false),
+                        BoolValuesCount = c.Int(nullable: false),
+                        StringValuesCount = c.Int(nullable: false),
+                        DateValuesCount = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.DateValues",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        ItemId = c.Int(nullable: false),
+                        Name = c.String(),
+                        Value = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.IntValues",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        ItemId = c.Int(nullable: false),
+                        Name = c.String(),
+                        Value = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -37,36 +63,10 @@
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Title = c.String(),
-                        Collection_Id = c.Int(),
+                        CollectionId = c.Int(nullable: false),
+                        LastChange = c.DateTime(nullable: false),
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Collections", t => t.Collection_Id)
-                .Index(t => t.Collection_Id);
-            
-            CreateTable(
-                "dbo.DateValues",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        ItemId = c.Int(nullable: false),
-                        Value = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Items", t => t.ItemId, cascadeDelete: true)
-                .Index(t => t.ItemId);
-            
-            CreateTable(
-                "dbo.IntValues",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        ItemId = c.Int(nullable: false),
-                        Value = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Items", t => t.ItemId, cascadeDelete: true)
-                .Index(t => t.ItemId);
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.StringValues",
@@ -74,11 +74,10 @@
                     {
                         Id = c.Int(nullable: false, identity: true),
                         ItemId = c.Int(nullable: false),
+                        Name = c.String(),
                         Value = c.String(),
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Items", t => t.ItemId, cascadeDelete: true)
-                .Index(t => t.ItemId);
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.Tags",
@@ -88,31 +87,32 @@
                         ItemId = c.Int(nullable: false),
                         TagName = c.String(),
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Items", t => t.ItemId, cascadeDelete: true)
-                .Index(t => t.ItemId);
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.UserModels",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        UserName = c.String(),
+                        EMail = c.String(),
+                        Password = c.String(),
+                        IsAdmin = c.Boolean(nullable: false),
+                        IsBlocked = c.Boolean(nullable: false),
+                        IsChecked = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.Items", "Collection_Id", "dbo.Collections");
-            DropForeignKey("dbo.Tags", "ItemId", "dbo.Items");
-            DropForeignKey("dbo.StringValues", "ItemId", "dbo.Items");
-            DropForeignKey("dbo.IntValues", "ItemId", "dbo.Items");
-            DropForeignKey("dbo.DateValues", "ItemId", "dbo.Items");
-            DropForeignKey("dbo.BoolValues", "ItemId", "dbo.Items");
-            DropIndex("dbo.Tags", new[] { "ItemId" });
-            DropIndex("dbo.StringValues", new[] { "ItemId" });
-            DropIndex("dbo.IntValues", new[] { "ItemId" });
-            DropIndex("dbo.DateValues", new[] { "ItemId" });
-            DropIndex("dbo.Items", new[] { "Collection_Id" });
-            DropIndex("dbo.BoolValues", new[] { "ItemId" });
+            DropTable("dbo.UserModels");
             DropTable("dbo.Tags");
             DropTable("dbo.StringValues");
+            DropTable("dbo.Items");
             DropTable("dbo.IntValues");
             DropTable("dbo.DateValues");
-            DropTable("dbo.Items");
             DropTable("dbo.Collections");
             DropTable("dbo.BoolValues");
         }
