@@ -103,7 +103,7 @@
                 data: { search: $("#tags").val() },
                 success: function (data) {
                     response($.map(data, function (item) {
-                        return { label: item.Tag, value: item.Tag };
+                        return { label: item.TagName, value: item.TagName };
                     }));
                 },
                 error: function (xhr, status, error) {
