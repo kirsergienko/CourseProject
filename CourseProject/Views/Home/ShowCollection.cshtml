@@ -96,60 +96,75 @@
             <td>
                 Int
             </td>
-            @for (int j = 0; j < ViewBag.Items[i].IntValues.Count; j++)
+            @if (ViewBag.Items[i].IntValues.Count > 0)
             {
-                <td>
-                    @ViewBag.Items[i].IntValues[j].Name
-                </td>
-                <td>
-                    @ViewBag.Items[i].IntValues[j].Value
-                </td>
+                for (int j = 0; j < ViewBag.Items[i].IntValues.Count; j++)
+                {
+                    <td>
+                        @ViewBag.Items[i].IntValues[j].Name
+                    </td>
+                    <td>
+                        @ViewBag.Items[i].IntValues[j].Value
+                    </td>
+                }
             }
         </tr>
         <tr>
             <td>
                 Bool
             </td>
-            @for (int j = 0; j < ViewBag.Items[i].BoolValues.Count; j++)
+            @if (ViewBag.Items[i].BoolValues.Count > 0)
             {
-                <td>
-                    @ViewBag.Items[i].BoolValues[j].Name
-                </td>
-                <td>
-                    @ViewBag.Items[i].BoolValues[j].Value
-                </td>
+                for (int j = 0; j < ViewBag.Items[i].BoolValues.Count; j++)
+                {
+                    <td>
+                        @ViewBag.Items[i].BoolValues[j].Name
+                    </td>
+                    <td>
+                        @ViewBag.Items[i].BoolValues[j].Value
+                    </td>
+                }
             }
         </tr>
         <tr>
             <td>
                 String
             </td>
-            @for (int j = 0; j < ViewBag.Items[i].StringValues.Count; j++)
+            @if (ViewBag.Items[i].StringValues.Count > 0)
             {
-                <td>
-                    @ViewBag.Items[i].StringValues[j].Name
-                </td>
-                <td>
-                    @ViewBag.Items[i].StringValues[j].Value
-                </td>
+                for (int j = 0; j < ViewBag.Items[i].StringValues.Count; j++)
+                {
+                    <td>
+                        @ViewBag.Items[i].StringValues[j].Name
+                    </td>
+                    <td>
+                        @ViewBag.Items[i].StringValues[j].Value
+                    </td>
+                }
             }
         </tr>
         <tr>
             <td>
                 Date
             </td>
-            @for (int j = 0; j < ViewBag.Items[i].DateValues.Count; j++)
+            @if (ViewBag.Items[i].DateValues.Count > 0)
             {
-                <td>
-                    @ViewBag.Items[i].DateValues[j].Name
-                </td>
-                <td>
-                    @ViewBag.Items[i].DateValues[j].Value.ToString("dd MMMM yyyy")
-                </td>
+                for (int j = 0; j < ViewBag.Items[i].DateValues.Count; j++)
+                {
+                    <td>
+                        @ViewBag.Items[i].DateValues[j].Name
+                    </td>
+                    <td>
+                        @ViewBag.Items[i].DateValues[j].Value.ToString("dd MMMM yyyy")
+                    </td>
+                }
             }
         </tr>
         Tags: @ViewBag.Items[i].Tags
     </table>
+    <p>
+        Added / Last changed: @ViewBag.Items[i].LastChanged
+    </p>
     if (ViewBag.CurrentUserId == Model.UserId || ViewBag.IsAdmin)
     {
         <table class="table-condensed">

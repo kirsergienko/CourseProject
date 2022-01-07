@@ -1,6 +1,8 @@
 ﻿@model CourseProject.Models.AddItemModel
 
+<link href="@Url.Content("~/Content/site.css")" rel="stylesheet" type="text/css" />
 <script src="~/Scripts/jquery-3.4.1.js"></script>
+<link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
 <script src="~/Scripts/jquery-ui.min.js"></script>
 <script src="~/Scripts/jquery-ui.js"></script>
 <h4>Add item to @ViewBag.Title</h4>
@@ -81,7 +83,7 @@
         }
     </table>
     <p>(Format: Month / Day / Year Hour: Minute: Secong PM/ AM.Time is optional)</p>
-    @Html.EditorFor(model => model.Tags, new { id = "tags" })
+    @Html.TextBoxFor(model => model.Tags, new { id = "tags", name = "tags" })
     @Html.HiddenFor(model => model.Tags)
     @Html.HiddenFor(model => model.Id, new { Value = ViewBag.Id })
     @Html.HiddenFor(model => model.CollectionId)
@@ -92,26 +94,21 @@
     @Html.ActionLink("Cancel", "DeleteItem", new { id = Model.Id })
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    <script>
-    $("#tags").autocomplete({
+<script>
+        $("#tags").autocomplete({
         source: function (request, response) {
             $ . ajax ({
                 url: '@Url.Action("Tags","Home")',
                 dataType: "json",
                 data: { search: $("#tags").val() },
                 success: function (data) {
-                    response($.map(data, function (item) {
-                        return { label: item.TagName, value: item.TagName };
+                    var input = data.Input + ' '
+                    response($.map(data.Tag, function (item) {
+                        return { label: item.TagName, value: input + item.TagName };
                     }));
-                },
-                error: function (xhr, status, error) {
-                    alert("Error");
                 }
             });
         }
-    });
-    </script>
-}
+        });
+</script>
 

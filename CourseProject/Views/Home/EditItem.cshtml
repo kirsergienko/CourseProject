@@ -1,84 +1,85 @@
 ﻿@model CourseProject.Models.AddItemModel
 
+<link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
 
 <h4>Edit item</h4>
 @using (Html.BeginForm())
 {
-<table class="table-bordered">
-    <tr>
-        <td>
-            Type
-        </td>
-        <td>
-            Name
-        </td>
-        <td>
-            Value
-        </td>
-    </tr>
-    @for (int i = 0; i < Model.IntValues.Count; i++)
-    {
+    <table class="table-bordered">
         <tr>
-            <td>Int</td>
             <td>
-                @Html.EditorFor(model => model.IntValues[i].Name)
+                Type
             </td>
             <td>
-                @Html.EditorFor(model => model.IntValues[i].Value)
+                Name
             </td>
-            @Html.HiddenFor(model => model.IntValues[i].Name)
-            @Html.HiddenFor(model => model.IntValues[i].Value)
-            @Html.HiddenFor(model => model.IntValues[i].ItemId, new { id = "itemid", Value = Model.Id })
+            <td>
+                Value
+            </td>
         </tr>
-    }
-    @for (int i = 0; i < Model.BoolValues.Count; i++)
-    {
-        <tr>
-            <td>Bool</td>
-            <td>
-                @Html.EditorFor(model => model.BoolValues[i].Name)
-            </td>
-            <td>
-                @Html.EditorFor(model => model.BoolValues[i].Value)
-            </td>
-            @Html.HiddenFor(model => model.BoolValues[i].Name)
-            @Html.HiddenFor(model => model.BoolValues[i].Value)
-            @Html.HiddenFor(model => model.BoolValues[i].ItemId, new { id = "itemid", Value = Model.Id })
-        </tr>
-    }
-    @for (int i = 0; i < Model.StringValues.Count; i++)
-    {
-        <tr>
-            <td>String</td>
-            <td>
-                @Html.EditorFor(model => model.StringValues[i].Name)
-            </td>
-            <td>
-                @Html.EditorFor(model => model.StringValues[i].Value)
-            </td>
-            @Html.HiddenFor(model => model.StringValues[i].Name)
-            @Html.HiddenFor(model => model.StringValues[i].Value)
-            @Html.HiddenFor(model => model.StringValues[i].ItemId, new { id = "itemid", Value = Model.Id })
-        </tr>
-    }
-    @for (int i = 0; i < Model.DateValues.Count; i++)
-    {
-        <tr>
-            <td>Date</td>
-            <td>
-                @Html.EditorFor(model => model.DateValues[i].Name)
-            </td>
-            <td>
-                @Html.EditorFor(model => model.DateValues[i].Value, new { Value = Model.DateValues[i].Value })
-            </td>
-            @Html.HiddenFor(model => model.DateValues[i].Name)
-            @Html.HiddenFor(model => model.DateValues[i].Value)
-            @Html.HiddenFor(model => model.DateValues[i].ItemId, new { id = "itemid", Value = Model.Id })
-        </tr>
-    }
-    @Html.EditorFor(model => model.Tags)
+        @for (int i = 0; i < Model.IntValues.Count; i++)
+        {
+            <tr>
+                <td>Int</td>
+                <td>
+                    @Html.EditorFor(model => model.IntValues[i].Name)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.IntValues[i].Value)
+                </td>
+                @Html.HiddenFor(model => model.IntValues[i].Name)
+                @Html.HiddenFor(model => model.IntValues[i].Value)
+                @Html.HiddenFor(model => model.IntValues[i].ItemId, new { id = "itemid", Value = Model.Id })
+            </tr>
+        }
+        @for (int i = 0; i < Model.BoolValues.Count; i++)
+        {
+            <tr>
+                <td>Bool</td>
+                <td>
+                    @Html.EditorFor(model => model.BoolValues[i].Name)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.BoolValues[i].Value)
+                </td>
+                @Html.HiddenFor(model => model.BoolValues[i].Name)
+                @Html.HiddenFor(model => model.BoolValues[i].Value)
+                @Html.HiddenFor(model => model.BoolValues[i].ItemId, new { id = "itemid", Value = Model.Id })
+            </tr>
+        }
+        @for (int i = 0; i < Model.StringValues.Count; i++)
+        {
+            <tr>
+                <td>String</td>
+                <td>
+                    @Html.EditorFor(model => model.StringValues[i].Name)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.StringValues[i].Value)
+                </td>
+                @Html.HiddenFor(model => model.StringValues[i].Name)
+                @Html.HiddenFor(model => model.StringValues[i].Value)
+                @Html.HiddenFor(model => model.StringValues[i].ItemId, new { id = "itemid", Value = Model.Id })
+            </tr>
+        }
+        @for (int i = 0; i < Model.DateValues.Count; i++)
+        {
+            <tr>
+                <td>Date</td>
+                <td>
+                    @Html.EditorFor(model => model.DateValues[i].Name)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.DateValues[i].Value, new { Value = Model.DateValues[i].Value })
+                </td>
+                @Html.HiddenFor(model => model.DateValues[i].Name)
+                @Html.HiddenFor(model => model.DateValues[i].Value)
+                @Html.HiddenFor(model => model.DateValues[i].ItemId, new { id = "itemid", Value = Model.Id })
+            </tr>
+        }
+    </table>
+    @Html.TextBoxFor(model => model.Tags, new { id = "tags" })
     @Html.HiddenFor(model => model.Tags)
-</table>
     @Html.HiddenFor(model => model.Id)
     @Html.HiddenFor(model => model.CollectionId)
     <input type="submit" value="Edit" />
@@ -89,6 +90,25 @@
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script>
+        $("#tags").autocomplete({
+        source: function (request, response) {
+            $ . ajax ({
+                url: '@Url.Action("Tags","Home")',
+                dataType: "json",
+                data: { search: $("#tags").val() },
+                success: function (data) {
+                    var input = data.Input + ' '
+                    response($.map(data.Tag, function (item) {
+                        return { label: item.TagName, value: input + item.TagName };
+                    }));
+                }
+            });
+        }
+        });
+    </script>
 }
 

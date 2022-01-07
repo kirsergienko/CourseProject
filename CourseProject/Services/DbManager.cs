@@ -27,7 +27,7 @@ namespace CourseProject.Services
 
         public List<Tag> GetTagList()
         {
-            return context.Tags.ToList();
+            return context.Tags.GroupBy(x => x.TagName).Select(x=>x.FirstOrDefault()).ToList();
         }
 
         public List<UserModel> ReturnUsers()
@@ -110,6 +110,8 @@ namespace CourseProject.Services
             AddValues(item);
             RemoveTags(item.Id);
             AddTags(item.Tags, item.Id);
+            var i = context.Items.FirstOrDefault(x => x.Id == item.Id);
+            i.LastChange = DateTime.Now;
             context.SaveChanges();
         }
 

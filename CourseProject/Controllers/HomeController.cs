@@ -36,7 +36,7 @@ namespace CourseProject.Controllers
             else
             {
                 ViewBag.ErrorMessage = loginManager.IsRegistred(login, password) ? "You are blocked." : "Wrong password or login.";
-                return View("Login");
+                return Login();
             }
         }
 
@@ -72,7 +72,7 @@ namespace CourseProject.Controllers
             }
             else
             {
-                return View("Login");
+                return Login();
             }
         }
 
@@ -93,7 +93,7 @@ namespace CourseProject.Controllers
             UserModel user = SetCurrentUser();
             if (!CurrentUserCheck(user) || user.Id != collection.UserId || user.IsAdmin == false)
             {
-                return View("Login");
+                return Login();
             }
             return View(InitialAddItemModel(collection));
         }
@@ -104,7 +104,7 @@ namespace CourseProject.Controllers
             UserModel user = SetCurrentUser();
             if (!CurrentUserCheck(user))
             {
-                return View("Login");
+                return Login();
             }
             db.AddValues(item);
             db.AddTags(item.Tags, item.Id);
@@ -120,7 +120,7 @@ namespace CourseProject.Controllers
             UserModel user = SetCurrentUser();
             if (!CurrentUserCheck(user) || user.Id != collection.UserId || user.IsAdmin == false)
             {
-                return View("Login");
+                return Login();
             }
             return View(item);
         }
@@ -139,7 +139,7 @@ namespace CourseProject.Controllers
             UserModel user = SetCurrentUser();
             if (!CurrentUserCheck(user))
             {
-                return View("Login");
+                return Login();
             }
             db.EditItem(item);
             ViewBag.CurrentUserId = user.Id;
@@ -183,10 +183,10 @@ namespace CourseProject.Controllers
             UserModel user = SetCurrentUser();
             if (!CurrentUserCheck(user) || user.Id != collection.UserId || user.IsAdmin == false)
             {
-                return View("Login");
+                return Login();
             }
             db.RemoveCollection(id);
-            return View("MainPage");
+            return MainPage();
         }
 
         public ActionResult DeleteItem(int id)
@@ -196,7 +196,7 @@ namespace CourseProject.Controllers
             UserModel user = SetCurrentUser();
             if (!CurrentUserCheck(user) || user.Id != collection.UserId || user.IsAdmin == false)
             {
-                return View("Login");
+                return Login();
             }
             db.RemoveItem(id);
             ViewBag.CurrentUserId = user.Id;
@@ -222,7 +222,7 @@ namespace CourseProject.Controllers
             var collection = db.GetCollection(id);
             if (!CurrentUserCheck(user) || user.Id != collection.UserId || user.IsAdmin == false)
             {
-                return View("Login");
+                return Login();
             }
             InitalViewBagforAddCollection(user);
             return View("EditCollection", collection);
@@ -237,7 +237,7 @@ namespace CourseProject.Controllers
                 UserModel user = SetCurrentUser();
                 if (!CurrentUserCheck(user))
                 {
-                    return View("Login");
+                    return Login();
                 }
                 db.EditCollection(collection);
                 ViewBag.CurrentUserId = user.Id > 0 ? user.Id : -1;
@@ -258,7 +258,7 @@ namespace CourseProject.Controllers
                 UserModel user = SetCurrentUser();
                 if (!CurrentUserCheck(user))
                 {
-                    return View("Login");
+                   return Login();
                 }
                 collection.UserId = user.Id;
                 collection.ItemsCount++;
@@ -318,7 +318,7 @@ namespace CourseProject.Controllers
                     Transformation = new Transformation().Width(img.Width).Height(img.Height).Crop("thumb").Gravity("face")
                 };
                 var uploadResult = _cloudinary.UploadLarge(uploadParams);
-                string uploadedImageUrl = uploadResult.SecureUri.AbsoluteUri;
+                string uploadedImageUrl = uploadResult.SecureUrl.AbsoluteUri;
                 return Json(new
                 {
                     Result = true,
@@ -358,7 +358,7 @@ namespace CourseProject.Controllers
             UserModel user = SetCurrentUser();
             if (!CurrentUserCheck(user) || !user.IsAdmin)
             {
-                return View("Login");
+                return Login();
             }
             switch (method)
             {
@@ -423,8 +423,15 @@ namespace CourseProject.Controllers
 
         public JsonResult Tags(string search)
         {
-            var Tags = db.GetTagList().Where(x => x.TagName.StartsWith(search)).ToList();
-            return new JsonResult { Data = Tags, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            List<string> vs = search.Split(' ').ToList();
+            if (vs.Last() != String.Empty)
+            {
+                var Tags = db.GetTagList().Where(x => x.TagName.StartsWith(vs.Last())).ToList();
+                vs.Remove(vs.Last());
+                var Item = new { Tag = Tags, Input = String.Join(" ",vs.ToArray())};
+                return new JsonResult { Data = Item, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            else return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
     }
