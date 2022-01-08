@@ -130,7 +130,20 @@ namespace CourseProject.Controllers
             var item = db.GetItem(id);
             var collection = db.GetCollection(item.CollectionId);
             UserModel user = SetCurrentUser();
-            return View(item);
+            ViewBag.Title = collection.Title;
+            return View("ShowItem", item);
+        }
+
+        [HttpPost]
+        public ActionResult Comment(string comment, int id)
+        {
+            var user = SetCurrentUser();
+            if (!CurrentUserCheck(user))
+            {
+                return Login();
+            }
+            db.AddComment(new Comment { ItemId = id, Text = comment, UserName = user.UserName, Commented = DateTime.Now  });
+            return ShowItem(id);
         }
 
         [HttpPost]

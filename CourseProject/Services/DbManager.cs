@@ -46,6 +46,12 @@ namespace CourseProject.Services
             return items;
         }
 
+        public void AddComment(Comment comment)
+        {
+            context.Comments.Add(comment);
+            context.SaveChanges();
+        }
+
         private AddItemModel InitialItem(Item item)
         {
             var newItem = new AddItemModel();
@@ -54,6 +60,12 @@ namespace CourseProject.Services
             newItem.Tags = String.Join(" ", tags.ToArray());
             newItem.LastChanged = item.LastChange;
             newItem.CollectionId = item.CollectionId;
+            newItem.Comments = context.Comments.Where(x => x.ItemId == item.Id).ToList();
+            return InititalValues(newItem, item);
+        }
+
+        private AddItemModel InititalValues(AddItemModel newItem, Item item)
+        {
             newItem.IntValues = new List<IntValue>();
             newItem.BoolValues = new List<BoolValue>();
             newItem.StringValues = new List<StringValue>();

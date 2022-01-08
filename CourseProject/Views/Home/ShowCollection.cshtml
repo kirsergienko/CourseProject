@@ -165,22 +165,24 @@
     <p>
         Added / Last changed: @ViewBag.Items[i].LastChanged
     </p>
-    if (ViewBag.CurrentUserId == Model.UserId || ViewBag.IsAdmin)
-    {
-        <table class="table-condensed">
-            <tr>
+
+    <table class="table-condensed">
+        <tr>
+            @if (ViewBag.CurrentUserId == Model.UserId || ViewBag.IsAdmin)
+            {
                 <td>
                     @Html.ActionLink("Delete", "DeleteItem", new { id = ViewBag.Items[i].Id })
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "EditItem", new { id = ViewBag.Items[i].Id })
                 </td>
-                <td>
-                    @Html.ActionLink("Show", "ShowItem", new { id = ViewBag.Items[i].Id })
-                </td>
-            </tr>
-        </table>
-    }
+            }
+            <td>
+                @Html.ActionLink("Show", "ShowItem", new { id = ViewBag.Items[i].Id })
+            </td>
+        </tr>
+    </table>
+
     <hr />
 }
 

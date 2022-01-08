@@ -13,6 +13,7 @@ namespace CourseProject.Models
 
         }
 
+        public DbSet<Comment> Comments { get; set; }
         public DbSet<UserModel> Users { get; set; }
 
         public DbSet<Collection> Collections { get; set; }

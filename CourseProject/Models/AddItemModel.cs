@@ -22,5 +22,7 @@ namespace CourseProject.Models
         public List<StringValue> StringValues { get; set; }
 
         public List<DateValue> DateValues { get; set; }
+
+        public List<Comment> Comments { get; set; }
     }
 }
