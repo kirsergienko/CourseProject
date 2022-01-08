@@ -131,6 +131,14 @@ namespace CourseProject.Controllers
             var collection = db.GetCollection(item.CollectionId);
             UserModel user = SetCurrentUser();
             ViewBag.Title = collection.Title;
+            if(item.Likes.Any(x=>x.UserId == user.Id))
+            {
+                ViewBag.Image = "https://res.cloudinary.com/de7r0q8df/image/upload/v1641633066/MyImages/Screenshot_3_ihqjtg.png";
+            }
+            else
+            {
+                ViewBag.Image = "https://res.cloudinary.com/de7r0q8df/image/upload/v1641633066/MyImages/Screenshot_2_ki0css.png";
+            }
             return View("ShowItem", item);
         }
 
@@ -143,6 +151,14 @@ namespace CourseProject.Controllers
                 return Login();
             }
             db.AddComment(new Comment { ItemId = id, Text = comment, UserName = user.UserName, Commented = DateTime.Now  });
+            return ShowItem(id);
+        }
+
+        [HttpPost]
+        public ActionResult Like(int id)
+        {
+            var user = SetCurrentUser();
+            db.AddLike(new Like { ItemId = id, UserId = user.Id });
             return ShowItem(id);
         }
 

@@ -24,5 +24,7 @@ namespace CourseProject.Models
         public List<DateValue> DateValues { get; set; }
 
         public List<Comment> Comments { get; set; }
+
+        public List<Like> Likes { get; set; }
     }
 }

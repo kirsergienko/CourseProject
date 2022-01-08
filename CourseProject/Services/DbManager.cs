@@ -27,7 +27,7 @@ namespace CourseProject.Services
 
         public List<Tag> GetTagList()
         {
-            return context.Tags.GroupBy(x => x.TagName).Select(x=>x.FirstOrDefault()).ToList();
+            return context.Tags.GroupBy(x => x.TagName).Select(x => x.FirstOrDefault()).ToList();
         }
 
         public List<UserModel> ReturnUsers()
@@ -46,6 +46,25 @@ namespace CourseProject.Services
             return items;
         }
 
+        public void AddLike(Like like)
+        {
+            if (context.Likes.Any(x => x.ItemId == like.ItemId && x.UserId == like.UserId))
+            {
+                RemoveLike(like);
+            }
+            else
+            {
+                context.Likes.Add(like);
+            }
+            context.SaveChanges();
+        }
+
+        public void RemoveLike(Like like)
+        {
+            var _like = context.Likes.FirstOrDefault(x => x.UserId == like.UserId && x.ItemId == like.ItemId);
+            context.Likes.Remove(_like);
+            context.SaveChanges();
+        }
         public void AddComment(Comment comment)
         {
             context.Comments.Add(comment);
@@ -56,11 +75,12 @@ namespace CourseProject.Services
         {
             var newItem = new AddItemModel();
             newItem.Id = item.Id;
-            var tags = context.Tags.Where(x => x.ItemId == item.Id).Select(x=>x.TagName);
+            var tags = context.Tags.Where(x => x.ItemId == item.Id).Select(x => x.TagName);
             newItem.Tags = String.Join(" ", tags.ToArray());
             newItem.LastChanged = item.LastChange;
             newItem.CollectionId = item.CollectionId;
             newItem.Comments = context.Comments.Where(x => x.ItemId == item.Id).ToList();
+            newItem.Likes = context.Likes.Where(x => x.ItemId == item.Id).ToList();
             return InititalValues(newItem, item);
         }
 

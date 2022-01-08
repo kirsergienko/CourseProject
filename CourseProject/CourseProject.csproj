@@ -194,6 +194,10 @@
     <Compile Include="Migrations\202201080623053_commented.designer.cs">
       <DependentUpon>202201080623053_commented.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201080856228_Likes.cs" />
+    <Compile Include="Migrations\202201080856228_Likes.designer.cs">
+      <DependentUpon>202201080856228_Likes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AddItemModel.cs" />
     <Compile Include="Models\ApplicationContext.cs" />
@@ -203,6 +207,7 @@
     <Compile Include="Models\IntValue.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Collection.cs" />
+    <Compile Include="Models\Like.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Models\StringValue.cs" />
     <Compile Include="Models\Tag.cs" />
@@ -309,6 +314,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201080623053_commented.resx">
       <DependentUpon>202201080623053_commented.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201080856228_Likes.resx">
+      <DependentUpon>202201080856228_Likes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
