@@ -234,6 +234,18 @@ namespace CourseProject.Controllers
             return View(db.GetCollection(id));
         }
 
+        public ActionResult Items(List<AddItemModel> items, int collectionId)
+        {
+            var user = SetCurrentUser();
+            if (user != null)
+            {
+                ViewBag.CurrentUserId = user.Id;
+            }
+            else ViewBag.CurrentUserId = -1;
+            ViewBag.CollectionId = collectionId;
+            return PartialView("Items",items);
+        }
+
         public ActionResult EditCollection(int id)
         {
             UserModel user = SetCurrentUser();
