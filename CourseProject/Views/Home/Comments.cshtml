@@ -1,0 +1,19 @@
+﻿@model CourseProject.Models.AddItemModel
+
+<div>
+    Comments:
+    @foreach (var comment in Model.Comments)
+    {
+        <div>
+            @comment.UserName:
+        </div>
+        <div>
+            @comment.Text
+        </div>
+        <div>
+            (@comment.Commented)
+        </div>
+        <hr />
+    }
+</div>
+

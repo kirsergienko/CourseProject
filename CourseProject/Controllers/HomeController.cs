@@ -146,6 +146,11 @@ namespace CourseProject.Controllers
             return ShowItem(id);
         }
 
+        public ActionResult Comments(int id)
+        {
+            return PartialView("Comments", db.GetItem(id));
+        }
+
         [HttpPost]
         public ActionResult EditItem(AddItemModel item)
         {

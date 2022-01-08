@@ -1,5 +1,6 @@
 ﻿@model CourseProject.Models.AddItemModel
-    <h2>Item from @ViewBag.Title</h2>
+<h2>Item from @ViewBag.Title</h2>
+
 <div>
     <table class="table-bordered">
         <tr>
@@ -88,7 +89,7 @@
     </p>
 </div>
 <hr />
-@Html.ActionLink("Back", "ShowCollection", new { id = Model.CollectionId})
+@Html.ActionLink("Back", "ShowCollection", new { id = Model.CollectionId })
 <hr />
 @if (ViewBag.IsNotGuest)
 {
@@ -107,20 +108,15 @@
     </div>
 }
 <hr />
-<div>
-    Comments:
-    @foreach (var comment in Model.Comments)
-    {
-        <div>
-            @comment.UserName:
-        </div>
-        <div>
-            @comment.Text
-        </div>
-        <div>
-            (@comment.Commented)
-        </div>
-        <hr />
-    }
+
+<div id="result1">
+
 </div>
 
+
+<script>
+    setInterval(function () {
+        var url = "@(Html.Raw(Url.Action("Comments","Home", new { id = Model.Id })))";
+        $('#result1').load(url)
+    }, 1000);
+</script>
