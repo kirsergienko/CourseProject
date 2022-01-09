@@ -35,6 +35,46 @@ namespace CourseProject.Services
             return context.Users.ToList();
         }
 
+        public List<AddItemModel> GetItems(string search)
+        {
+            List<int> ids = new List<int>();
+            List<int> collection_ids = new List<int>();
+            FindCollectionIds(ref collection_ids, search);
+            FindItemsIds(ref ids, search);
+            return GetSearchResult(ids, collection_ids);
+        }
+
+        private List<AddItemModel> GetSearchResult(List<int> ids, List<int> collection_ids)
+        {
+            var items = new List<AddItemModel>();
+            foreach (var id in collection_ids)
+            {
+                ids.AddRange(context.Items.Where(x => x.CollectionId == id).Select(x => x.Id));
+            }
+            ids = ids.Distinct().ToList();
+            foreach (var id in ids)
+            {
+                items.Add(GetItem(id));
+            }
+            return items;
+        }
+
+        private void FindCollectionIds(ref List<int> collection_ids, string search)
+        {
+            collection_ids.AddRange(context.Collections.Where(x => x.Description.Contains(search)).Select(x => x.Id));
+            collection_ids.AddRange(context.Collections.Where(x => x.Title.Contains(search)).Select(x => x.Id));
+        }
+
+        private void FindItemsIds(ref List<int> ids, string search)
+        {
+            ids.AddRange(context.IntValues.Where(x => x.Name == search).Select(x => x.ItemId));
+            ids.AddRange(context.BoolValues.Where(x=>x.Name == search).Select(x=>x.ItemId));
+            ids.AddRange(context.DateValues.Where(x => x.Name == search).Select(x => x.ItemId));
+            ids.AddRange(context.StringValues.Where(x => x.Name == search || x.Value == search).Select(x => x.ItemId));
+            ids.AddRange(context.Comments.Where(x => x.Text.Contains(search)).Select(x => x.ItemId));
+            ids.AddRange(context.Tags.Where(x => x.TagName.Contains(search)).Select(x => x.ItemId));
+        }
+
         public List<AddItemModel> GetItems(int collectionId)
         {
             var items = new List<AddItemModel>();

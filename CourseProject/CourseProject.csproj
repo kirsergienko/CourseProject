@@ -290,6 +290,7 @@
     <Content Include="Views\Home\Comments.cshtml" />
     <Content Include="Views\Home\Items.cshtml" />
     <Content Include="Views\Home\SearchResult.cshtml" />
+    <Content Include="Views\Home\FoundItems.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -87,11 +87,21 @@ namespace CourseProject.Controllers
             return GenerateAddCollectionView();
         }
 
+        public ActionResult FoundItems(string search)
+        {
+            return PartialView("FoundItems", db.GetItems(search));
+        }
+        public ActionResult SortedFoundItems(string search, string sort)
+        {
+            var items = db.GetItems(search);
+            Sorting(ref items, sort);
+            return PartialView("FoundItems", items);
+        }
+
         [HttpPost]
         public ActionResult Search(string search)
         {
-
-            return View("SearchResult");
+            return View("SearchResult", model: search);
         }
         public ActionResult AddItem(int id)
         {
@@ -282,27 +292,31 @@ namespace CourseProject.Controllers
             else ViewBag.CurrentUserId = -1;
             ViewBag.CollectionId = collectionId;
             var items = db.GetItems(collectionId);
+            Sorting(ref items, sort);
+            return PartialView("Items", items);
+        }
+
+
+        private void Sorting(ref List<AddItemModel> items, string sort)
+        {
             switch (sort)
             {
                 case "Bydate":
                     items = items.OrderBy(x => x.LastChanged).ToList();
                     break;
                 case "Bylikes":
-                    items = items.OrderByDescending(x=>x.Likes.Count).ToList();
+                    items = items.OrderByDescending(x => x.Likes.Count).ToList();
                     break;
                 case "Bydatedescending":
-                    items = items.OrderByDescending(x=>x.LastChanged).ToList();
+                    items = items.OrderByDescending(x => x.LastChanged).ToList();
                     break;
                 case "Bylikesdescending":
                     items = items.OrderBy(x => x.Likes.Count).ToList();
                     break;
                 default:
                     break;
-
             }
-            return PartialView("Items", items);
         }
-
 
         public ActionResult EditCollection(int id)
         {
