@@ -60,7 +60,7 @@
                         @Model.StringValues[j].Name
                     </td>
                     <td>
-                        @Model.StringValues[j].Value
+                        @Html.Raw(Model.StringValues[j].Value)
                     </td>
                 }
             }

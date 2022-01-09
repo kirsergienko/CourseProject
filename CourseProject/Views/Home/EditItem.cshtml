@@ -49,18 +49,18 @@
         }
         @for (int i = 0; i < Model.StringValues.Count; i++)
         {
-            <tr>
-                <td>String</td>
-                <td>
-                    @Html.EditorFor(model => model.StringValues[i].Name)
-                </td>
-                <td>
-                    @Html.EditorFor(model => model.StringValues[i].Value)
-                </td>
-                @Html.HiddenFor(model => model.StringValues[i].Name)
-                @Html.HiddenFor(model => model.StringValues[i].Value)
-                @Html.HiddenFor(model => model.StringValues[i].ItemId, new { id = "itemid", Value = Model.Id })
-            </tr>
+    <tr>
+        <td>String</td>
+        <td>
+            @Html.EditorFor(model => model.StringValues[i].Name)
+        </td>
+        <td>
+            @Html.TextAreaFor(model => model.StringValues[i].Value, new { id = "editor" })
+        </td>
+        @Html.HiddenFor(model => model.StringValues[i].Name)
+        @Html.HiddenFor(model => model.StringValues[i].Value)
+        @Html.HiddenFor(model => model.StringValues[i].ItemId, new { id = "itemid", Value = Model.Id })
+    </tr>
         }
         @for (int i = 0; i < Model.DateValues.Count; i++)
         {

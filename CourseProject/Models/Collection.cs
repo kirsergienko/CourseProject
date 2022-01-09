@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 using CourseProject.Validators;
 
 namespace CourseProject.Models
@@ -14,7 +15,8 @@ namespace CourseProject.Models
         [UniqueTitle]
         [MinLength(3)]
         public string Title { get; set; }
-
+        
+        [AllowHtml]
         public string Description { get; set; }
 
         public string Theme { get; set; }

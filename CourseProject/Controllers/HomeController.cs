@@ -247,7 +247,7 @@ namespace CourseProject.Controllers
             }
             else ViewBag.CurrentUserId = -1;
             ViewBag.Items = db.GetItems(id);
-            return View(db.GetCollection(id));
+            return View("ShowCollection", db.GetCollection(id));
         }
 
         public ActionResult Items(List<AddItemModel> items, int collectionId)
@@ -307,11 +307,10 @@ namespace CourseProject.Controllers
                    return Login();
                 }
                 collection.UserId = user.Id;
-                collection.ItemsCount++;
                 db.AddCollection(collection);
                 ViewBag.CurrentUserId = user.Id > 0 ? user.Id : -1;
                 ViewBag.Items = db.GetItems(collection.Id);
-                return View("ShowCollection", db.GetCollection(collection.Id));
+                return ShowCollection(collection.Id);
             }
             else
             {
@@ -324,7 +323,7 @@ namespace CourseProject.Controllers
             UserModel user = SetCurrentUser();
             if (!CurrentUserCheck(user))
             {
-                return View("Login");
+                return Login();
             }
             InitalViewBagforAddCollection(user);
             return View("AddCollection");

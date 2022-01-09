@@ -1,4 +1,6 @@
-﻿namespace CourseProject.Models
+﻿using System.Web.Mvc;
+
+namespace CourseProject.Models
 {
     public class StringValue
     {
@@ -8,6 +10,7 @@
 
         public string Name { get; set; }
 
+        [AllowHtml]
         public string Value { get; set; }
     }
 }

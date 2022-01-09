@@ -70,7 +70,7 @@
                         @Model[i].StringValues[j].Name
                     </td>
                     <td>
-                        @Model[i].StringValues[j].Value
+                        @Html.Raw(Model[i].StringValues[j].Value)
                     </td>
                 }
             }

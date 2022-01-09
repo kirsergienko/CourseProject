@@ -58,7 +58,7 @@
                     @Html.EditorFor(model => model.StringValues[i].Name)
                 </td>
                 <td>
-                    @Html.EditorFor(model => model.StringValues[i].Value)
+                    @Html.TextAreaFor(model => model.StringValues[i].Value, new { id = "editor" })
                 </td>
                 @Html.HiddenFor(model => model.StringValues[i].Name)
                 @Html.HiddenFor(model => model.StringValues[i].Value)
