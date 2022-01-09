@@ -87,6 +87,12 @@ namespace CourseProject.Controllers
             return GenerateAddCollectionView();
         }
 
+        [HttpPost]
+        public ActionResult Search(string search)
+        {
+
+            return View("SearchResult");
+        }
         public ActionResult AddItem(int id)
         {
             var collection = db.GetCollection(id);
@@ -131,13 +137,16 @@ namespace CourseProject.Controllers
             var collection = db.GetCollection(item.CollectionId);
             UserModel user = SetCurrentUser();
             ViewBag.Title = collection.Title;
-            if(item.Likes.Any(x=>x.UserId == user.Id))
+            if (user != null)
             {
-                ViewBag.Image = "https://res.cloudinary.com/de7r0q8df/image/upload/v1641633066/MyImages/Screenshot_3_ihqjtg.png";
-            }
-            else
-            {
-                ViewBag.Image = "https://res.cloudinary.com/de7r0q8df/image/upload/v1641633066/MyImages/Screenshot_2_ki0css.png";
+                if (item.Likes.Any(x => x.UserId == user.Id))
+                {
+                    ViewBag.Image = "https://res.cloudinary.com/de7r0q8df/image/upload/v1641633066/MyImages/Screenshot_3_ihqjtg.png";
+                }
+                else
+                {
+                    ViewBag.Image = "https://res.cloudinary.com/de7r0q8df/image/upload/v1641633066/MyImages/Screenshot_2_ki0css.png";
+                }
             }
             return View("ShowItem", item);
         }
@@ -150,7 +159,7 @@ namespace CourseProject.Controllers
             {
                 return Login();
             }
-            db.AddComment(new Comment { ItemId = id, Text = comment, UserName = user.UserName, Commented = DateTime.Now  });
+            db.AddComment(new Comment { ItemId = id, Text = comment, UserName = user.UserName, Commented = DateTime.Now });
             return ShowItem(id);
         }
 
@@ -250,7 +259,7 @@ namespace CourseProject.Controllers
             return View("ShowCollection", db.GetCollection(id));
         }
 
-        public ActionResult Items(List<AddItemModel> items, int collectionId)
+        public ActionResult Items(int collectionId)
         {
             var user = SetCurrentUser();
             if (user != null)
@@ -259,8 +268,41 @@ namespace CourseProject.Controllers
             }
             else ViewBag.CurrentUserId = -1;
             ViewBag.CollectionId = collectionId;
-            return PartialView("Items",items);
+            var items = db.GetItems(collectionId);
+            return PartialView("Items", items);
         }
+
+        public ActionResult SortedItems(int collectionId, string sort)
+        {
+            var user = SetCurrentUser();
+            if (user != null)
+            {
+                ViewBag.CurrentUserId = user.Id;
+            }
+            else ViewBag.CurrentUserId = -1;
+            ViewBag.CollectionId = collectionId;
+            var items = db.GetItems(collectionId);
+            switch (sort)
+            {
+                case "Bydate":
+                    items = items.OrderBy(x => x.LastChanged).ToList();
+                    break;
+                case "Bylikes":
+                    items = items.OrderByDescending(x=>x.Likes.Count).ToList();
+                    break;
+                case "Bydatedescending":
+                    items = items.OrderByDescending(x=>x.LastChanged).ToList();
+                    break;
+                case "Bylikesdescending":
+                    items = items.OrderBy(x => x.Likes.Count).ToList();
+                    break;
+                default:
+                    break;
+
+            }
+            return PartialView("Items", items);
+        }
+
 
         public ActionResult EditCollection(int id)
         {
@@ -304,7 +346,7 @@ namespace CourseProject.Controllers
                 UserModel user = SetCurrentUser();
                 if (!CurrentUserCheck(user))
                 {
-                   return Login();
+                    return Login();
                 }
                 collection.UserId = user.Id;
                 db.AddCollection(collection);
@@ -473,7 +515,7 @@ namespace CourseProject.Controllers
             {
                 var Tags = db.GetTagList().Where(x => x.TagName.StartsWith(vs.Last())).ToList();
                 vs.Remove(vs.Last());
-                var Item = new { Tag = Tags, Input = String.Join(" ",vs.ToArray())};
+                var Item = new { Tag = Tags, Input = String.Join(" ", vs.ToArray()) };
                 return new JsonResult { Data = Item, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
             else return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };

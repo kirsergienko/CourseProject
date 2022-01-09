@@ -25,6 +25,15 @@
                     <li>@Html.ActionLink("Home", "MainPage", "Home")</li>
                     <li>@Html.ActionLink("Login", "Login", "Home")</li>
                     <li>@Html.ActionLink("Registration", "Registration", "Home")</li>
+                    <li>
+                        <div>
+                            @using (Html.BeginForm("Search", "Home", FormMethod.Post))
+                            {
+                                <input type="text" name="search" />
+                                <input type="submit" value="Search"/>
+                            }
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>

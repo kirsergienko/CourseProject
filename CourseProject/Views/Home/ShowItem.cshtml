@@ -90,12 +90,14 @@
 </div>
 <div>
     Likes: @Model.Likes.Count <br />
-    @using (Html.BeginForm("Like", "Home", FormMethod.Post))
+    @if (ViewBag.IsNotGuest)
     {
-        @Html.HiddenFor(model => model.Id, new { name = "itemId" })
-        <input type="image" src="@ViewBag.Image" height="40" width="40" />
+        using (Html.BeginForm("Like", "Home", FormMethod.Post))
+        {
+            @Html.HiddenFor(model => model.Id, new { name = "itemId" })
+            <input type="image" src="@ViewBag.Image" height="40" width="40" />
+        }
     }
-
 </div>
 <hr />
 @Html.ActionLink("Back", "ShowCollection", new { id = Model.CollectionId })

@@ -69,9 +69,42 @@
         </table>
     }
 </div>
+Sort:
+@Html.DropDownList("Sort", (IEnumerable<SelectListItem>)new SelectList(new List<string> { "--", "By date", "By likes", "By date descending", "By likes descending" }), new { @class = "sort" })
 
-@Html.Action("Items", new { items = ViewBag.Items, collectionId = Model.Id })
+
+<div id="items">
+
+</div>
 
 <p>
     @Html.ActionLink("Home", "MainPage")
 </p>
+
+@section Scripts {
+    <script>
+        $(".sort").change(function () {
+            var sort = $(".sort").val()
+            var url = "/Home/SortedItems?collectionId=" + @Model.Id + "&sort=" + sort.replace(/ /g, '');;
+            $("#items").load(url)
+    });
+    </script>
+    <script>
+        $(document).ready(function () {
+            var url = "@(Html.Raw(Url.Action("Items","Home" ,new { collectionId = Model.Id })))";
+             $("#items").load(url)
+        });
+    </script>
+
+    <script>
+        $(function () {
+            $('.link').click(function () {
+                var ipvalue = $("#IP").val();
+                this.href = this.href.replace("xxx", ipvalue);
+            });
+        });
+    </script>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+}
+
+
