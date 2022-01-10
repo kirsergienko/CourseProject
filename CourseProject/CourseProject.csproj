@@ -198,6 +198,10 @@
     <Compile Include="Migrations\202201080856228_Likes.designer.cs">
       <DependentUpon>202201080856228_Likes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201101235054_dss.cs" />
+    <Compile Include="Migrations\202201101235054_dss.designer.cs">
+      <DependentUpon>202201101235054_dss.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AddItemModel.cs" />
     <Compile Include="Models\ApplicationContext.cs" />
@@ -319,6 +323,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201080856228_Likes.resx">
       <DependentUpon>202201080856228_Likes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201101235054_dss.resx">
+      <DependentUpon>202201101235054_dss.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
