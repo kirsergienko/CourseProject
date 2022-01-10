@@ -103,26 +103,34 @@ namespace CourseProject.Controllers
         {
             return View("SearchResult", model: search);
         }
+
+   
+        public ActionResult SearchTag(string search)
+        {
+            return View("SearchResult", model: search);
+        }
         public ActionResult AddItem(int id)
         {
             var collection = db.GetCollection(id);
             UserModel user = SetCurrentUser();
-            if (!CurrentUserCheck(user) || user.Id != collection.UserId || user.IsAdmin == false)
+            if (!CurrentUserCheck(user) || user.Id != collection.UserId)
             {
-                return Login();
+                if (user == null || user.IsAdmin == false)
+                    return Login();
             }
             return View(InitialAddItemModel(collection));
         }
 
         [HttpPost]
-        public ActionResult AddItem(AddItemModel item)
+        public ActionResult AddItem(Item item)
         {
             UserModel user = SetCurrentUser();
-            if (!CurrentUserCheck(user))
+            if (!CurrentUserCheck(user) || user.Id != item.CollectionId)
             {
-                return Login();
+                if (user == null || user.IsAdmin == false)
+                    return Login();
             }
-            db.AddValues(item);
+            db.AddItem(item);
             db.AddTags(item.Tags, item.Id);
             ViewBag.CurrentUserId = user.Id;
             ViewBag.Items = db.GetItems(item.CollectionId);
@@ -134,9 +142,10 @@ namespace CourseProject.Controllers
             var item = db.GetItem(id);
             var collection = db.GetCollection(item.CollectionId);
             UserModel user = SetCurrentUser();
-            if (!CurrentUserCheck(user) || user.Id != collection.UserId || user.IsAdmin == false)
+            if (!CurrentUserCheck(user) || user.Id != collection.UserId)
             {
-                return Login();
+                if (user == null || user.IsAdmin == false)
+                    return Login();
             }
             return View(item);
         }
@@ -187,12 +196,13 @@ namespace CourseProject.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditItem(AddItemModel item)
+        public ActionResult EditItem(Item item)
         {
             UserModel user = SetCurrentUser();
-            if (!CurrentUserCheck(user))
+            if (!CurrentUserCheck(user) || user.Id != item.CollectionId)
             {
-                return Login();
+                if (user == null || user.IsAdmin == false)
+                    return Login();
             }
             db.EditItem(item);
             ViewBag.CurrentUserId = user.Id;
@@ -200,9 +210,9 @@ namespace CourseProject.Controllers
             return View("ShowCollection", db.GetCollection(item.CollectionId));
         }
 
-        private AddItemModel InitialAddItemModel(Collection collection)
+        private Item InitialAddItemModel(Collection collection)
         {
-            AddItemModel item = new AddItemModel();
+            Item item = new Item();
             item.CollectionId = collection.Id;
             item.BoolValues = new List<BoolValue>();
             for (int i = 0; i < collection.BoolValuesCount; i++)
@@ -234,9 +244,10 @@ namespace CourseProject.Controllers
         {
             var collection = db.GetCollection(id);
             UserModel user = SetCurrentUser();
-            if (!CurrentUserCheck(user) || user.Id != collection.UserId || user.IsAdmin == false)
+            if (!CurrentUserCheck(user) || user.Id != id)
             {
-                return Login();
+                if (user == null || user.IsAdmin == false)
+                    return Login();
             }
             db.RemoveCollection(id);
             return MainPage();
@@ -247,9 +258,10 @@ namespace CourseProject.Controllers
             var item = db.GetItem(id);
             var collection = db.GetCollection(item.CollectionId);
             UserModel user = SetCurrentUser();
-            if (!CurrentUserCheck(user) || user.Id != collection.UserId || user.IsAdmin == false)
+            if (!CurrentUserCheck(user) || user.Id != item.CollectionId)
             {
-                return Login();
+                if (user == null || user.IsAdmin == false)
+                    return Login();
             }
             db.RemoveItem(id);
             ViewBag.CurrentUserId = user.Id;
@@ -297,7 +309,7 @@ namespace CourseProject.Controllers
         }
 
 
-        private void Sorting(ref List<AddItemModel> items, string sort)
+        private void Sorting(ref List<Item> items, string sort)
         {
             switch (sort)
             {
@@ -322,9 +334,10 @@ namespace CourseProject.Controllers
         {
             UserModel user = SetCurrentUser();
             var collection = db.GetCollection(id);
-            if (!CurrentUserCheck(user) || user.Id != collection.UserId || user.IsAdmin == false)
+            if (!CurrentUserCheck(user) || user.Id != id)
             {
-                return Login();
+                if (user == null || user.IsAdmin == false)
+                    return Login();
             }
             InitalViewBagforAddCollection(user);
             return View("EditCollection", collection);
@@ -337,9 +350,10 @@ namespace CourseProject.Controllers
             if (ModelState.IsValid)
             {
                 UserModel user = SetCurrentUser();
-                if (!CurrentUserCheck(user))
+                if (!CurrentUserCheck(user) || user.Id != collection.Id)
                 {
-                    return Login();
+                    if (user == null || user.IsAdmin == false)
+                        return Login();
                 }
                 db.EditCollection(collection);
                 ViewBag.CurrentUserId = user.Id > 0 ? user.Id : -1;
@@ -360,7 +374,8 @@ namespace CourseProject.Controllers
                 UserModel user = SetCurrentUser();
                 if (!CurrentUserCheck(user))
                 {
-                    return Login();
+                    if (user == null || user.IsAdmin == false)
+                        return Login();
                 }
                 collection.UserId = user.Id;
                 db.AddCollection(collection);

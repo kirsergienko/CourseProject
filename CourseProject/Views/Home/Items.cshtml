@@ -1,5 +1,5 @@
 ﻿@using CourseProject.Models
-@model List<AddItemModel>
+@model List<Item>
 
 @if (Model.Count > 0)
 {
@@ -12,6 +12,18 @@
 @for (int i = 0; i < Model.Count; i++)
 {
     <p>Item @Model[i].Id </p>
+
+
+    List<string> tags = Model[i].Tags.Split(' ').ToList();
+
+    <span>Tags:</span> if (tags.Count > 0 && tags[0] != "")
+    {
+        foreach (var tag in tags)
+        {
+            @Html.ActionLink(tag + " ", "SearchTag", new {search = tag}) 
+        }
+    }
+
     <table class="table-bordered">
         <tr>
             <td>
@@ -92,7 +104,6 @@
                 }
             }
         </tr>
-        Tags: @Model[i].Tags
     </table>
     <p>
         Added / Last changed: @Model[i].LastChanged
