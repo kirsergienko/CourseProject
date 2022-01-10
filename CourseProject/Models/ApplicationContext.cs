@@ -8,7 +8,7 @@ namespace CourseProject.Models
 {
     public class ApplicationContext : DbContext
     {
-        public ApplicationContext() : base("myDb3")
+        public ApplicationContext() : base("myDb")
         {
 
         }
