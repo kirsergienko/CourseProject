@@ -182,27 +182,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202201060831073_Initial.cs" />
-    <Compile Include="Migrations\202201060831073_Initial.designer.cs">
-      <DependentUpon>202201060831073_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202201080541306_comments.cs" />
-    <Compile Include="Migrations\202201080541306_comments.designer.cs">
-      <DependentUpon>202201080541306_comments.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202201080623053_commented.cs" />
-    <Compile Include="Migrations\202201080623053_commented.designer.cs">
-      <DependentUpon>202201080623053_commented.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202201080856228_Likes.cs" />
-    <Compile Include="Migrations\202201080856228_Likes.designer.cs">
-      <DependentUpon>202201080856228_Likes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202201101235054_dss.cs" />
-    <Compile Include="Migrations\202201101235054_dss.designer.cs">
-      <DependentUpon>202201101235054_dss.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AddItemModel.cs" />
     <Compile Include="Models\ApplicationContext.cs" />
     <Compile Include="Models\BoolValue.cs" />
@@ -310,23 +289,6 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202201060831073_Initial.resx">
-      <DependentUpon>202201060831073_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202201080541306_comments.resx">
-      <DependentUpon>202201080541306_comments.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202201080623053_commented.resx">
-      <DependentUpon>202201080623053_commented.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202201080856228_Likes.resx">
-      <DependentUpon>202201080856228_Likes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202201101235054_dss.resx">
-      <DependentUpon>202201101235054_dss.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
