@@ -10,8 +10,9 @@ namespace CourseProject.Models
     {
         public ApplicationContext() : base("myDb")
         {
-
+            this.Configuration.LazyLoadingEnabled = true;
         }
+
 
         public DbSet<Like> Likes { get; set; }
         public DbSet<Comment> Comments { get; set; }

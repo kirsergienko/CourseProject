@@ -132,9 +132,7 @@ namespace CourseProject.Controllers
             }
             db.AddItem(item);
             db.AddTags(item.Tags, item.Id);
-            ViewBag.CurrentUserId = user.Id;
-            ViewBag.Items = db.GetItems(item.CollectionId);
-            return View("ShowCollection", db.GetCollection(item.CollectionId));
+            return ShowCollection(item.CollectionId);
         }
 
         public ActionResult EditItem(int id)
@@ -205,9 +203,7 @@ namespace CourseProject.Controllers
                     return Login();
             }
             db.EditItem(item);
-            ViewBag.CurrentUserId = user.Id;
-            ViewBag.Items = db.GetItems(item.CollectionId);
-            return View("ShowCollection", db.GetCollection(item.CollectionId));
+            return ShowCollection(item.CollectionId);
         }
 
         private Item InitialAddItemModel(Collection collection)
@@ -242,7 +238,6 @@ namespace CourseProject.Controllers
 
         public ActionResult DeleteCollection(int id)
         {
-            var collection = db.GetCollection(id);
             UserModel user = SetCurrentUser();
             if (!CurrentUserCheck(user) || user.Id != id)
             {

@@ -80,11 +80,7 @@ namespace CourseProject.Services
         public List<Item> GetItems(int collectionId)
         {
             var items = new List<Item>();
-            var temp = context.Items.Where(x => x.CollectionId == collectionId).ToList();
-            foreach (var item in temp)
-            {
-                items.Add(InitialItem(item));
-            }
+            items = context.Items.Where(x=>x.CollectionId == collectionId).ToList();
             return items;
         }
 
@@ -113,36 +109,9 @@ namespace CourseProject.Services
             context.SaveChanges();
         }
 
-        private Item InitialItem(Item item)
-        {
-            var newItem = new Item();
-            newItem.Id = item.Id;
-            var tags = context.Tags.Where(x => x.ItemId == item.Id).Select(x => x.TagName);
-            newItem.Tags = String.Join(" ", tags.ToArray());
-            newItem.LastChanged = item.LastChanged;
-            newItem.CollectionId = item.CollectionId;
-            newItem.Comments = context.Comments.Where(x => x.ItemId == item.Id).ToList();
-            newItem.Likes = context.Likes.Where(x => x.ItemId == item.Id).ToList();
-            return InititalValues(newItem, item);
-        }
-
-        private Item InititalValues(Item newItem, Item item)
-        {
-            newItem.IntValues = new List<IntValue>();
-            newItem.BoolValues = new List<BoolValue>();
-            newItem.StringValues = new List<StringValue>();
-            newItem.DateValues = new List<DateValue>();
-            newItem.IntValues.AddRange(context.IntValues.Where(x => x.ItemId == item.Id).ToList());
-            newItem.BoolValues.AddRange(context.BoolValues.Where(x => x.ItemId == item.Id).ToList());
-            newItem.StringValues.AddRange(context.StringValues.Where(x => x.ItemId == item.Id).ToList());
-            newItem.DateValues.AddRange(context.DateValues.Where(x => x.ItemId == item.Id).ToList());
-            return newItem;
-        }
-
         public Item GetItem(int id)
         {
-            var i = context.Items.FirstOrDefault(x => x.Id == id);
-            return i == null ? null : InitialItem(i);
+            return context.Items.FirstOrDefault(x => x.Id == id);
         }
 
         public void RemoveItem(int id)
@@ -182,17 +151,9 @@ namespace CourseProject.Services
         {
             RemoveValues(item.Id);
             AddValues(item);
-            RemoveTags(item.Id);
-            AddTags(item.Tags, item.Id);
             var i = context.Items.FirstOrDefault(x => x.Id == item.Id);
             i.LastChanged = DateTime.Now;
-            context.SaveChanges();
-        }
-
-        private void RemoveTags(int id)
-        {
-            var c = context.Tags.Where(x => x.ItemId == id);
-            context.Tags.RemoveRange(c);
+            i.Tags = item.Tags;
             context.SaveChanges();
         }
 

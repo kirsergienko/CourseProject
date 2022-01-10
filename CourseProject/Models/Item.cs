@@ -15,16 +15,16 @@ namespace CourseProject.Models
 
         public string Tags { get; set; }
 
-        public List<IntValue> IntValues { get; set; }
+        public virtual List<IntValue> IntValues { get; set; }
 
-        public List<BoolValue> BoolValues { get; set; }
+        public virtual List<BoolValue> BoolValues { get; set; }
 
-        public List<StringValue> StringValues { get; set; }
+        public virtual List<StringValue> StringValues { get; set; }
 
-        public List<DateValue> DateValues { get; set; }
+        public virtual List<DateValue> DateValues { get; set; }
 
-        public List<Comment> Comments { get; set; }
+        public virtual List<Comment> Comments { get; set; }
 
-        public List<Like> Likes { get; set; }
+        public virtual List<Like> Likes { get; set; }
     }
 }
