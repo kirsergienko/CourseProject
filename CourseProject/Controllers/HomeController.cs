@@ -125,7 +125,8 @@ namespace CourseProject.Controllers
         public ActionResult AddItem(Item item)
         {
             UserModel user = SetCurrentUser();
-            if (!CurrentUserCheck(user) || user.Id != item.CollectionId)
+            var collection = db.GetCollection(item.CollectionId);
+            if (!CurrentUserCheck(user) || user.Id != collection.UserId)
             {
                 if (user == null || user.IsAdmin == false)
                     return Login();
@@ -253,7 +254,7 @@ namespace CourseProject.Controllers
             var item = db.GetItem(id);
             var collection = db.GetCollection(item.CollectionId);
             UserModel user = SetCurrentUser();
-            if (!CurrentUserCheck(user) || user.Id != item.CollectionId)
+            if (!CurrentUserCheck(user) || user.Id != collection.UserId)
             {
                 if (user == null || user.IsAdmin == false)
                     return Login();
@@ -284,7 +285,7 @@ namespace CourseProject.Controllers
                 ViewBag.CurrentUserId = user.Id;
             }
             else ViewBag.CurrentUserId = -1;
-            ViewBag.CollectionId = collectionId;
+            ViewBag.CollectionId = db.GetCollection(collectionId).UserId;
             var items = db.GetItems(collectionId);
             return PartialView("Items", items);
         }
