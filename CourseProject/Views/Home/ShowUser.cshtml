@@ -1,0 +1,41 @@
+﻿@model CourseProject.Models.UserModel
+<h2>Profile @Model.UserName</h2>
+@if (ViewBag.IsAdmin)
+{
+    <div class="admin">
+        <h4>Admin info</h4>
+        <p>Email: @Model.EMail</p>
+        <p>Blocked: @Model.IsBlocked</p>
+        <p>Admin: @Model.IsAdmin</p>
+        @Html.ActionLink("Block", "BlockSingle", new { id = Model.Id })
+        @Html.ActionLink("Unblock", "UnblockSingle", new { id = Model.Id })
+        @Html.ActionLink("Delete", "DeleteSingle", new { id = Model.Id })
+        @Html.ActionLink("Change role", "ChangeRoleSingle", new { id = Model.Id })
+    </div>
+}
+<hr />
+<h3>Collections:</h3>
+@if (ViewBag.CurrentUserId == Model.Id || ViewBag.IsAdmin)
+{
+    @Html.ActionLink("Add collection", "AddCollectionFromProfile", new { userid = Model.Id })
+}
+<div id="collections">
+
+</div>
+<hr />
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var url = "@(Html.Raw(Url.Action("GetCollections", "Home" ,new { userid = Model.Id })))";
+            $("#collections").load(url)
+        });
+    </script>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+}
+
+<style>
+    .admin {
+        background: #b9b9b9
+    }
+</style>

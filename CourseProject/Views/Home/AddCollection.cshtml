@@ -10,7 +10,7 @@
     <link href="~/Scripts/dropzone/dropzone.css" rel="stylesheet" />
 </head>
 <body>
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("AddCollection","Home", FormMethod.Post))
     {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">

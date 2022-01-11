@@ -193,6 +193,7 @@
     <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Models\StringValue.cs" />
     <Compile Include="Models\Tag.cs" />
+    <Compile Include="Models\TagCloud.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DbManager.cs" />
@@ -273,6 +274,12 @@
     <Content Include="Views\Home\Items.cshtml" />
     <Content Include="Views\Home\SearchResult.cshtml" />
     <Content Include="Views\Home\FoundItems.cshtml" />
+    <Content Include="Views\Home\SearchResultTag.cshtml" />
+    <Content Include="Views\Home\ShowUser.cshtml" />
+    <Content Include="Views\Home\GetCollections.cshtml" />
+    <Content Include="Views\Home\LastAddedItems.cshtml" />
+    <Content Include="Views\Home\BiggestCollections.cshtml" />
+    <Content Include="Views\Home\TagCloud.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -49,9 +49,11 @@
         </dt>
 
         <dd>
-            @ViewBag.Items.Count
+            @Model.ItemsCount
         </dd>
     </dl>
+    @Html.ActionLink("Author", "ShowUser", new { id = Model.UserId })
+    <hr />
     @if (ViewBag.CurrentUserId == Model.UserId || ViewBag.IsAdmin)
     {
         <table class="table-condensed">

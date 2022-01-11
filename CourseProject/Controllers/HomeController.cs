@@ -21,7 +21,7 @@ namespace CourseProject.Controllers
 
         public ActionResult Login()
         {
-            return View();
+            return View("Login");
         }
 
         [HttpPost]
@@ -82,6 +82,45 @@ namespace CourseProject.Controllers
             return View("MainPage");
         }
 
+        public ActionResult LastAddedItems()
+        {
+            return PartialView(db.GetLastAddedItems());
+        }
+
+        public ActionResult TagCloud()
+        {
+            return PartialView(db.GetTagCloud());
+        }
+
+        public ActionResult BiggestCollections()
+        {
+            return PartialView(db.GetBiggestCollections());
+        }
+
+        public ActionResult ShowUser(int id)
+        {
+            SetCurrentUser();
+            return View("ShowUser", db.Find(id));
+        }
+
+        public ActionResult MyProfile()
+        {
+            var user = SetCurrentUser();
+            if (CurrentUserCheck(user))
+            {
+                return ShowUser(user.Id);
+            }
+            else
+            {
+                return Login();
+            }
+        }
+
+        public ActionResult GetCollections(int userid)
+        {
+            return PartialView("GetCollections", db.GetCollections(userid));
+        }
+
         public ActionResult AddCollection()
         {
             return GenerateAddCollectionView();
@@ -98,6 +137,17 @@ namespace CourseProject.Controllers
             return PartialView("FoundItems", items);
         }
 
+        public ActionResult FoundItemsTag(string search)
+        {
+            return PartialView("FoundItems", db.GetItemsByTag(search));
+        }
+        public ActionResult SortedFoundItemsTag(string search, string sort)
+        {
+            var items = db.GetItemsByTag(search);
+            Sorting(ref items, sort);
+            return PartialView("FoundItems", items);
+        }
+
         [HttpPost]
         public ActionResult Search(string search)
         {
@@ -107,7 +157,7 @@ namespace CourseProject.Controllers
    
         public ActionResult SearchTag(string search)
         {
-            return View("SearchResult", model: search);
+            return View("SearchResultTag", model: search);
         }
         public ActionResult AddItem(int id)
         {
@@ -262,7 +312,7 @@ namespace CourseProject.Controllers
             db.RemoveItem(id);
             ViewBag.CurrentUserId = user.Id;
             ViewBag.Items = db.GetItems(collection.Id);
-            return View("ShowCollection", collection);
+            return ShowCollection(collection.Id);
         }
 
         public ActionResult ShowCollection(int id)
@@ -373,7 +423,6 @@ namespace CourseProject.Controllers
                     if (user == null || user.IsAdmin == false)
                         return Login();
                 }
-                collection.UserId = user.Id;
                 db.AddCollection(collection);
                 ViewBag.CurrentUserId = user.Id > 0 ? user.Id : -1;
                 ViewBag.Items = db.GetItems(collection.Id);
@@ -383,6 +432,13 @@ namespace CourseProject.Controllers
             {
                 return GenerateAddCollectionView();
             }
+        }
+
+        public ActionResult AddCollectionFromProfile(int userid)
+        {
+            var user = db.Find(userid);
+            InitalViewBagforAddCollection(user);
+            return View("AddCollection");
         }
 
         private ActionResult GenerateAddCollectionView()
@@ -506,6 +562,50 @@ namespace CourseProject.Controllers
                 return View("Login");
             }
             return View("ListOfUsers", db.ReturnUsers().ToList());
+        }
+
+        public ActionResult BlockSingle(int id)
+        {
+            UserModel user = SetCurrentUser();
+            if (!CurrentUserCheck(user) || !user.IsAdmin)
+            {
+                return Login();
+            }
+            db.Block(id);
+            return ShowUser(id);
+        }
+
+        public ActionResult UnblockSingle(int id)
+        {
+            UserModel user = SetCurrentUser();
+            if (!CurrentUserCheck(user) || !user.IsAdmin)
+            {
+                return Login();
+            }
+            db.Unblock(id);
+            return ShowUser(id);
+        }
+
+        public ActionResult DeleteSingle(int id)
+        {
+            UserModel user = SetCurrentUser();
+            if (!CurrentUserCheck(user) || !user.IsAdmin)
+            {
+                return Login();
+            }
+            db.RemoveUser(id);
+            return MainPage();
+        }
+
+        public ActionResult ChangeRoleSingle(int id)
+        {
+            UserModel user = SetCurrentUser();
+            if (!CurrentUserCheck(user) || !user.IsAdmin)
+            {
+                return Login();
+            }
+            db.ChangeRole(id);
+            return ShowUser(id);
         }
 
         private UserModel SetCurrentUser()

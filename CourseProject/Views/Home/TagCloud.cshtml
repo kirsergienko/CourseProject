@@ -1,0 +1,12 @@
+﻿@using CourseProject.Models
+@model List<TagCloud>
+
+<h3>Tag Cloud</h3>
+<ul>
+    @foreach (var tag in Model)
+    {
+        <li>
+            <a href="/Home/SearchTag?search=@tag.Tag" data-weight="@tag.Count">@tag.Tag</a>
+        </li>
+    }
+</ul>

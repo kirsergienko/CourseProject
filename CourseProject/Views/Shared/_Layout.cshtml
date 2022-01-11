@@ -30,10 +30,11 @@
                             @using (Html.BeginForm("Search", "Home", FormMethod.Post))
                             {
                                 <input type="text" name="search" />
-                                <input type="submit" value="Search"/>
+                                <input type="submit" value="Search" />
                             }
                         </div>
                     </li>
+                    <li>@Html.ActionLink("My profile", "MyProfile", "Home")</li>
                 </ul>
             </div>
         </div>

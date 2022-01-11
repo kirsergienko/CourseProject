@@ -20,5 +20,28 @@
             </div>
         }
     }
+    <div id="tags">
+
+    </div>
+    <div id="collections">
+
+    </div>
+    <div id="items">
+
+    </div>
 </body>
 </html>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var itemsurl = "@(Html.Raw(Url.Action("LastAddedItems","Home")))";
+            $("#items").load(itemsurl)
+            var tagsurl = "@(Html.Raw(Url.Action("TagCloud","Home" )))";
+            $("#tags").load(tagsurl)
+            var collectionsurl = "@(Html.Raw(Url.Action("BiggestCollections","Home")))";
+            $("#collections").load(collectionsurl)
+        });
+    </script>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+}

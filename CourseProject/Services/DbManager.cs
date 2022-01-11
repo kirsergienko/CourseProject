@@ -55,9 +55,27 @@ namespace CourseProject.Services
 
         public List<Item> GetItems(int collectionId)
         {
-            var items = new List<Item>();
-            items = context.Items.Where(x=>x.CollectionId == collectionId).ToList();
-            return items;
+            return context.Items.Where(x => x.CollectionId == collectionId).ToList();
+        }
+
+        public List<Item> GetItemsByTag(string search)
+        {
+            return context.Items.Where(x => x.Tags.Contains(search)).ToList();
+        }
+
+        public List<Item> GetLastAddedItems()
+        {
+            return context.Items.OrderByDescending(x => x.LastChanged).Take(10).ToList();
+        }
+
+        public List<TagCloud> GetTagCloud()
+        {
+            return context.Tags.GroupBy(x => x.TagName).Select(x => new TagCloud { Tag = x.Key, Count = x.Count() }).OrderByDescending(x => x.Count).Take(10).ToList();
+        }
+
+        public List<Collection> GetBiggestCollections()
+        {
+            return context.Collections.OrderByDescending(x=>x.ItemsCount).Take(5).ToList();
         }
 
         public void AddLike(Like like)
@@ -92,9 +110,13 @@ namespace CourseProject.Services
 
         public void RemoveItem(int id)
         {
-            var c = context.Items.First(x => x.Id == id);
-            context.Items.Remove(c);
+            var i = context.Items.First(x => x.Id == id);
+            context.Items.Remove(i);
+            var c = context.Collections.Where(x => x.Id == i.CollectionId).FirstOrDefault();
+            c.ItemsCount--;
+            context.Configuration.ValidateOnSaveEnabled = false;
             context.SaveChanges();
+            context.Configuration.ValidateOnSaveEnabled = true;
         }
 
         public int AddItem(Item item)
@@ -102,7 +124,11 @@ namespace CourseProject.Services
             item.Tags = "";
             item.LastChanged = DateTime.Now;
             context.Items.Add(item);
+            var c = context.Collections.Where(x => x.Id == item.CollectionId).FirstOrDefault();
+            c.ItemsCount++;
+            context.Configuration.ValidateOnSaveEnabled = false;
             context.SaveChanges();
+            context.Configuration.ValidateOnSaveEnabled = true;
             return item.Id;
         }
 
@@ -192,6 +218,11 @@ namespace CourseProject.Services
         public Collection GetCollection(Collection collection)
         {
             return context.Collections.FirstOrDefault(x => x.Title == collection.Title);
+        }
+
+        public List<Collection> GetCollections(int userid)
+        {
+            return context.Collections.Where(x=>x.UserId == userid).ToList();
         }
 
         public Collection GetCollection(int id)

@@ -1,0 +1,25 @@
+﻿@model string
+<h2>Results for @Model</h2>
+
+Sort:
+@Html.DropDownList("Sort", (IEnumerable<SelectListItem>)new SelectList(new List<string> { "--", "By date", "By likes", "By date descending", "By likes descending" }), new { @class = "sort" })
+<div id="items">
+
+</div>
+
+@section Scripts {
+    <script>
+        $(".sort").change(function () {
+            var sort = $(".sort").val()
+            var url = "/Home/SortedFoundItemsTag?search=" + "@Model" + "&sort=" + sort.replace(/ /g, '');;
+            $("#items").load(url)
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            var url = "@(Html.Raw(Url.Action("FoundItemsTag", "Home" ,new { search = Model })))";
+             $("#items").load(url)
+        });
+    </script>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+}

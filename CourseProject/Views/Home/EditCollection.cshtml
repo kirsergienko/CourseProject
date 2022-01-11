@@ -28,7 +28,7 @@
             <div>
                 <button type="button" id="submit-all"> Upload </button>
             </div>
-            @Html.HiddenFor(model => model.UserId, new { id = "userId", Value = ViewBag.UserId })
+            @Html.HiddenFor(model => model.UserId)
             <div>
                 Theme:
                 @Html.DropDownListFor(model => model.Theme, (IEnumerable<SelectListItem>)new SelectList(ViewBag.Themes))
