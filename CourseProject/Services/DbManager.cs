@@ -39,7 +39,7 @@ namespace CourseProject.Services
         {
             List<Item> items = new List<Item>();
             items.AddRange(context.Items.Where(x => 
-            x.Comments.Any(c => c.Text == search) ||
+            x.Comments.Any(c => c.Text.Contains(search)) ||
             x.BoolValues.Any(c => c.Name == search) ||
             x.StringValues.Any(c => c.Name == search) ||
             x.StringValues.Any(c => c.Value == search) ||
@@ -119,9 +119,12 @@ namespace CourseProject.Services
             context.Configuration.ValidateOnSaveEnabled = true;
         }
 
-        public int AddItem(Item item)
+        public void AddItem(Item item)
         {
-            item.Tags = "";
+            if(item.Tags == null)
+            {
+                item.Tags = "";
+            }
             item.LastChanged = DateTime.Now;
             context.Items.Add(item);
             var c = context.Collections.Where(x => x.Id == item.CollectionId).FirstOrDefault();
@@ -129,7 +132,6 @@ namespace CourseProject.Services
             context.Configuration.ValidateOnSaveEnabled = false;
             context.SaveChanges();
             context.Configuration.ValidateOnSaveEnabled = true;
-            return item.Id;
         }
 
         public void AddValues(Item item)

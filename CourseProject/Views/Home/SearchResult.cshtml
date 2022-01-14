@@ -1,8 +1,13 @@
 ﻿@model string
-<h2>Results for @Model</h2>
 
-Sort:
-@Html.DropDownList("Sort", (IEnumerable<SelectListItem>)new SelectList(new List<string> { "--", "By date", "By likes", "By date descending", "By likes descending" }), new { @class = "sort" })
+<h2 style="text-align:center;">Results for @Model</h2>
+
+<div class="sortlist">
+    <span style="text-align:center">Sort:</span>
+    @Html.DropDownList("Sort", (IEnumerable<SelectListItem>)new SelectList(new List<string> { "--", "By date", "By likes", "By date descending", "By likes descending" }), new { @class = "sort" })
+</div>
+
+
 <div id="items">
 
 </div>
@@ -23,3 +28,11 @@ Sort:
     </script>
     <script src="~/Scripts/jquery-3.4.1.js"></script>
 }
+
+<style>
+    .sortlist{
+        text-align:center;
+        justify-items: center;
+        align-content:center;
+    }
+</style>

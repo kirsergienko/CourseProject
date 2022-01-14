@@ -4,31 +4,42 @@
     <meta charset="utf-8" />
     <title>Users</title>
     <link href="@Url.Content("~/Content/site.css")" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-    @{ if (ViewBag.IsAdmin)
-        {
-            <div>
-                @Html.ActionLink("List Of Users", "ListOfUsers")
+
+<div class="container" >
+    <div class="row">
+
+        <div class="col">
+            @{ if (ViewBag.IsAdmin)
+                {
+                    <div>
+                        @Html.ActionLink("List Of Users", "ListOfUsers", new { }, htmlAttributes: new { @class = "btn btn-primary mainbtn" })
+                    </div>
+                }
+                if (ViewBag.IsNotGuest)
+                {
+                    <div>
+                        @Html.ActionLink("Add Collection", "AddCollection",new { }, htmlAttributes: new { @class = "btn btn-primary mainbtn" })
+                    </div>
+                }
+            }
+            <div id="tags"  style="margin-bottom:10px; margin-top:20px">
+
             </div>
-        }
-        if (ViewBag.IsNotGuest)
-        {
-            <div>
-                @Html.ActionLink("Add Collection", "AddCollection")
+            <div id="collections" >
+
             </div>
-        }
-    }
-    <div id="tags">
+        </div>
+        <div class="col-10">
+            <div id="items">
 
+            </div>
+        </div>
     </div>
-    <div id="collections">
-
-    </div>
-    <div id="items">
-
-    </div>
+</div>
+    
 </body>
 </html>
 
@@ -44,4 +55,11 @@
         });
     </script>
     <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
 }
+
+<style>
+    .mainbtn {
+        margin-top: 10px;
+    }
+</style>

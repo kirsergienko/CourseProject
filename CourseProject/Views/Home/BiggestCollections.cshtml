@@ -6,6 +6,24 @@
 <div>
     @foreach (var collection in Model)
     {
-        @Html.ActionLink(collection.Title, "ShowCollection", new { id = collection.Id }) <span> Items count: @collection.ItemsCount </span> <br />
+        <hr />
+        @Html.ActionLink(collection.Title, "ShowCollection", new { id = collection.Id }, new { @class = "title" }) <p class="count"> Count: @collection.ItemsCount </p>
     }
 </div>
+
+<style>
+    .title{
+        text-decoration:none;
+        font-size: 20px;
+        color: forestgreen;
+    }
+
+    .title:hover{
+        color:blue;
+    }
+
+    .count{
+        font-size:20px;
+        white-space:nowrap;
+    }
+</style>

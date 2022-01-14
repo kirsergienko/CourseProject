@@ -1,12 +1,54 @@
 ﻿@using CourseProject.Models
 @model List<TagCloud>
 
-<h3>Tag Cloud</h3>
-<ul>
-    @foreach (var tag in Model)
-    {
-        <li>
-            <a href="/Home/SearchTag?search=@tag.Tag" data-weight="@tag.Count">@tag.Tag</a>
-        </li>
+<div class="tagcloud">
+    <h3>Tag Cloud</h3>
+    <ul>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <li class="taglist">
+                <a href="/Home/SearchTag?search=@Model[i].Tag" data-weight="@((10-i)/2)">@Model[i].Tag</a>
+            </li>
+        }
+    </ul>
+</div>
+
+
+
+<style>
+
+    .taglist{
+        list-style: none;
     }
-</ul>
+
+    ul li.taglist a[data-weight="0"] {
+        font-size: 14px;
+        color: #000000
+    }
+    ul li.taglist a[data-weight="1"] {
+        font-size: 16px;
+        color: #181;
+    }
+    ul li.taglist a[data-weight="2"] {
+        font-size: 20px;
+        color: #6461b6
+    }
+    ul li.taglist a[data-weight="3"] {
+        font-size: 24px;
+        color: #3f49ba;
+    }
+    ul li.taglist a[data-weight="4"] {
+        font-size: 30px;
+        color: #9617ee;
+    }
+    ul li.taglist a[data-weight="5"] {
+        font-size: 36px;
+        color: blue;
+    }
+
+    .taglist a{
+        text-decoration: none;
+    }
+
+</style>
+

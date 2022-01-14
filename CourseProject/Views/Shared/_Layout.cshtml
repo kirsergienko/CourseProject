@@ -7,48 +7,84 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/31.1.0/classic/ckeditor.js"></script>
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("CourseProject", "MainPage", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "MainPage", "Home")</li>
-                    <li>@Html.ActionLink("Login", "Login", "Home")</li>
-                    <li>@Html.ActionLink("Registration", "Registration", "Home")</li>
-                    <li>
-                        <div>
-                            @using (Html.BeginForm("Search", "Home", FormMethod.Post))
-                            {
-                                <input type="text" name="search" />
-                                <input type="submit" value="Search" />
-                            }
-                        </div>
+<body class="layout">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="@Url.Action("MainPage")">
+                <img src="https://res.cloudinary.com/de7r0q8df/image/upload/v1642152351/MyImages/%D0%9D%D0%BE%D0%B2%D1%8B%D0%B9_%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82_fj8lzt.png" alt="" width="45" height="35" class="d-inline-block align-text-top">
+                CourseProject
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="@Url.Action("MainPage")">Home</a>
                     </li>
-                    <li>@Html.ActionLink("My profile", "MyProfile", "Home")</li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="@Url.Action("Login")">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="@Url.Action("Registration")">Registration</a>
+                    </li>
                 </ul>
+                <form class="d-flex" action="Search" method="post">
+                    <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
+    </nav>
+    <div class="container body-content" style="margin-left: 0px; margin-right: 0px;">
         @RenderBody()
         <hr />
-        <footer>
+        <footer style="text-align:center">
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>
+<style>
+    .items {
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        max-width: 800px;
+    }
+
+    .layout {
+        padding-top: 0px;
+        background: linear-gradient(270deg, #8bd9e4, #e2d992)
+    }
+
+    .btn-primary {
+        background-color: #ffffff;
+        color: forestgreen;
+        border-color: forestgreen;
+    }
+
+        .btn-primary:hover {
+            background-color: forestgreen;
+        }
+
+    .tag {
+        text-decoration: none;
+    }
+
+        .tag:hover {
+            color: #29108e
+        }
+</style>
+

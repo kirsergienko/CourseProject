@@ -282,8 +282,6 @@ namespace CourseProject.Controllers
                 item.DateValues.Add(new DateValue { });
             }
             ViewBag.Title = collection.Title;
-            item.Id = db.AddItem(new Item { CollectionId = collection.Id });
-            ViewBag.Id = item.Id;
             return item;
         }
 

@@ -1,6 +1,6 @@
 ﻿@model CourseProject.Models.Collection
 
-<div>
+<div style="margin-left: 20%;">
     <h4>Collection</h4>
     <hr />
     <dl class="dl-horizontal">
@@ -56,23 +56,26 @@
     <hr />
     @if (ViewBag.CurrentUserId == Model.UserId || ViewBag.IsAdmin)
     {
-        <table class="table-condensed">
+        <table style="margin-bottom:10px">
             <tr>
                 <td>
-                    @Html.ActionLink("Add Item", "AddItem", new { id = Model.Id })
+                    @Html.ActionLink("Add Item", "AddItem", new { id = Model.Id }, new { @class = "btn btn-primary" })
                 </td>
                 <td>
-                    @Html.ActionLink("Delete collection", "DeleteCollection", new { id = Model.Id })
+                    @Html.ActionLink("Delete collection", "DeleteCollection", new { id = Model.Id }, new { @class = "btn btn-primary" })
                 </td>
                 <td>
-                    @Html.ActionLink("Edit collection", "EditCollection", new { id = Model.Id })
+                    @Html.ActionLink("Edit collection", "EditCollection", new { id = Model.Id }, new { @class = "btn btn-primary" })
                 </td>
             </tr>
         </table>
     }
 </div>
-Sort:
-@Html.DropDownList("Sort", (IEnumerable<SelectListItem>)new SelectList(new List<string> { "--", "By date", "By likes", "By date descending", "By likes descending" }), new { @class = "sort" })
+<div style="margin-left:20%;">
+    Sort:
+    @Html.DropDownList("Sort", (IEnumerable<SelectListItem>)new SelectList(new List<string> { "--", "By date", "By likes", "By date descending", "By likes descending" }), new { @class = "sort" })
+</div>
+
 
 
 <div id="items">
