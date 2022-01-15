@@ -12,7 +12,7 @@
 <div class="container" >
     <div class="row">
 
-        <div class="col">
+        <div class="col " style="background: linear-gradient(90deg,#b7efb1, #fff); border-top: 0 !important;">
             @{ if (ViewBag.IsAdmin)
                 {
                     <div>
@@ -22,14 +22,15 @@
                 if (ViewBag.IsNotGuest)
                 {
                     <div>
-                        @Html.ActionLink(Language.Add_collection, "AddCollection",new { }, htmlAttributes: new { @class = "btn btn-primary mainbtn" })
+                        @Html.ActionLink(Language.Add_collection, "AddCollection", new { }, htmlAttributes: new { @class = "btn btn-primary mainbtn" })
                     </div>
                 }
             }
-            <div id="tags"  style="margin-bottom:10px; margin-top:20px">
+            
+            <div id="tags" style="margin-bottom:10px; margin-top:20px">
 
             </div>
-            <div id="collections" >
+            <div id="collections">
 
             </div>
         </div>

@@ -72,7 +72,7 @@
     }
 </div>
 <div style="margin-left:20%;">
-    Sort:
+    @Language.Sort:
     @Html.DropDownList(Language.Sort, (IEnumerable<SelectListItem>)new SelectList(new List<string> { "--", Language.By_date, Language.By_likes, Language.By_date_descending, Language.By_likes_descending }), new { @class = "sort" })
 </div>
 
@@ -82,7 +82,7 @@
 
 </div>
 
-<p>
+<p style="margin-left:20%">
     @Html.ActionLink(Language.Home, "MainPage")
 </p>
 

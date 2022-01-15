@@ -1,8 +1,8 @@
 ﻿@model CourseProject.Models.Item
-    @using CourseProject.Resources
-<h2>@Language.Item_from @ViewBag.Title</h2>
+@using CourseProject.Resources
 
 <div class="items">
+    <h2>@Language.Item_from @ViewBag.Title</h2>
     <table class="table table-striped table-hover">
         <tr>
             <td>
@@ -97,41 +97,45 @@
         @Language.Added___Last_changed_ @Model.LastChanged
     </p>
 </div>
-<div>
-    Likes: @Model.Likes.Count <br />
-    @if (ViewBag.IsNotGuest)
-    {
-        using (Html.BeginForm("Like", "Home", FormMethod.Post))
-        {
-            @Html.HiddenFor(model => model.Id, new { name = "itemId" })
-            <input type="image" src="@ViewBag.Image" height="40" width="40" />
-        }
-    }
-</div>
-<hr />
-@Html.ActionLink("Back", "ShowCollection", new { id = Model.CollectionId })
-<hr />
-@if (ViewBag.IsNotGuest)
-{
+<div style="margin-left:20%;">
     <div>
-        @using (Html.BeginForm("Comment", "Home", FormMethod.Post))
+        Likes: @Model.Likes.Count <br />
+        @if (ViewBag.IsNotGuest)
         {
-            <div>
-                <p>@Language.Comment_this_item:</p>
-                <input type="text" name="comment" />
+            using (Html.BeginForm("Like", "Home", FormMethod.Post))
+            {
                 @Html.HiddenFor(model => model.Id, new { name = "itemId" })
-            </div>
-            <div>
-                <input type="submit" value="@Language.Send_comment" />
-            </div>
+                <input type="image" src="@ViewBag.Image" height="40" width="40" />
+            }
         }
     </div>
-}
-<hr />
+    <hr />
+    @Html.ActionLink(Language.Back, "ShowCollection", new { id = Model.CollectionId })
+    <hr />
+    @if (ViewBag.IsNotGuest)
+    {
+        <div>
+            @using (Html.BeginForm("Comment", "Home", FormMethod.Post))
+            {
+                <div>
+                    <p>@Language.Comment_this_item:</p>
+                    <input type="text" name="comment" />
+                    @Html.HiddenFor(model => model.Id, new { name = "itemId" })
+                </div>
+                <div>
+                    <input type="submit" value="@Language.Send_comment" />
+                </div>
+            }
+        </div>
+    }
+    <hr />
 
-<div id="result1">
+    <div id="result1">
+
+    </div>
 
 </div>
+
 
 
 <script>
