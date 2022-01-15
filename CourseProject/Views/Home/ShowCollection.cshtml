@@ -1,11 +1,11 @@
 ﻿@model CourseProject.Models.Collection
-
+@using CourseProject.Resources
 <div style="margin-left: 20%;">
-    <h4>Collection</h4>
+    <h4>@Language.Collection</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            Title:
+            @Language.Title:
         </dt>
 
         <dd>
@@ -13,7 +13,7 @@
         </dd>
 
         <dt>
-            Collection picture:
+            @Language.Collection_picture:
         </dt>
 
         <dd>
@@ -29,7 +29,7 @@
         </dd>
 
         <dt>
-            Description:
+            @Language.Description:
         </dt>
 
         <dd>
@@ -37,7 +37,7 @@
         </dd>
 
         <dt>
-            Theme:
+            @Language.Theme:
         </dt>
 
         <dd>
@@ -45,27 +45,27 @@
         </dd>
 
         <dt>
-            Items Count:
+            @Language.Items_Count:
         </dt>
 
         <dd>
             @Model.ItemsCount
         </dd>
     </dl>
-    @Html.ActionLink("Author", "ShowUser", new { id = Model.UserId })
+    @Html.ActionLink(Language.Author, "ShowUser", new { id = Model.UserId })
     <hr />
     @if (ViewBag.CurrentUserId == Model.UserId || ViewBag.IsAdmin)
     {
         <table style="margin-bottom:10px">
             <tr>
                 <td>
-                    @Html.ActionLink("Add Item", "AddItem", new { id = Model.Id }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink(Language.Add_item, "AddItem", new { id = Model.Id }, new { @class = "btn btn-primary" })
                 </td>
                 <td>
-                    @Html.ActionLink("Delete collection", "DeleteCollection", new { id = Model.Id }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink(Language.Delete_collection, "DeleteCollection", new { id = Model.Id }, new { @class = "btn btn-primary" })
                 </td>
                 <td>
-                    @Html.ActionLink("Edit collection", "EditCollection", new { id = Model.Id }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink(Language.Edit_collection, "EditCollection", new { id = Model.Id }, new { @class = "btn btn-primary" })
                 </td>
             </tr>
         </table>
@@ -73,7 +73,7 @@
 </div>
 <div style="margin-left:20%;">
     Sort:
-    @Html.DropDownList("Sort", (IEnumerable<SelectListItem>)new SelectList(new List<string> { "--", "By date", "By likes", "By date descending", "By likes descending" }), new { @class = "sort" })
+    @Html.DropDownList(Language.Sort, (IEnumerable<SelectListItem>)new SelectList(new List<string> { "--", Language.By_date, Language.By_likes, Language.By_date_descending, Language.By_likes_descending }), new { @class = "sort" })
 </div>
 
 
@@ -83,7 +83,7 @@
 </div>
 
 <p>
-    @Html.ActionLink("Home", "MainPage")
+    @Html.ActionLink(Language.Home, "MainPage")
 </p>
 
 @section Scripts {

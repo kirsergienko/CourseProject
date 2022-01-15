@@ -1,18 +1,18 @@
-﻿
+﻿@using CourseProject.Resources
 @{
     ViewBag.Title = "Login";
 }
 <div class="items">
-    <h4>Please login</h4>
+    <h4>@Language.Please_login</h4>
     <hr />
     @using (Html.BeginForm())
     {
         <div>
-            <p class="login">Login:</p>
+            <p class="login">@Language.Login:</p>
             <input type="text" name="login" />
         </div>
         <div >
-            <p class="login">Password:</p>
+            <p class="login">@Language.Password:</p>
             <input type="password" name="password" />
         </div>
         <p>@ViewBag.ErrorMessage</p>
@@ -20,7 +20,7 @@
             <input type="submit" value="Login" class="btn btn-dark" formaction="Login" formmethod="post" />
         </div>
     }
-    @Html.ActionLink("Registration", "Registration")
+    @Html.ActionLink(Language.Registration, "Registration")
 
 </div>
 

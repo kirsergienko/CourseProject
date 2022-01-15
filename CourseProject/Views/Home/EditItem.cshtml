@@ -1,93 +1,88 @@
 ﻿@model CourseProject.Models.Item
-
+@using CourseProject.Resources
 <link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
 
-<h4>Edit item</h4>
-@using (Html.BeginForm())
-{
-    <table class="table-bordered">
-        <tr>
-            <td>
-                Type
-            </td>
-            <td>
-                Name
-            </td>
-            <td>
-                Value
-            </td>
-        </tr>
-        @for (int i = 0; i < Model.IntValues.Count; i++)
-        {
+<div class="items">
+    <h4>@Language.Edit_item</h4>
+    @using (Html.BeginForm())
+    {
+        <table class="table table-striped table-hover">
             <tr>
-                <td>Int</td>
                 <td>
-                    @Html.EditorFor(model => model.IntValues[i].Name)
+                    @Language.Type
                 </td>
                 <td>
-                    @Html.EditorFor(model => model.IntValues[i].Value)
+                    @Language.Item
                 </td>
-                @Html.HiddenFor(model => model.IntValues[i].Name)
-                @Html.HiddenFor(model => model.IntValues[i].Value)
-                @Html.HiddenFor(model => model.IntValues[i].ItemId, new { id = "itemid", Value = Model.Id })
             </tr>
-        }
-        @for (int i = 0; i < Model.BoolValues.Count; i++)
-        {
-            <tr>
-                <td>Bool</td>
-                <td>
-                    @Html.EditorFor(model => model.BoolValues[i].Name)
-                </td>
-                <td>
-                    @Html.EditorFor(model => model.BoolValues[i].Value)
-                </td>
-                @Html.HiddenFor(model => model.BoolValues[i].Name)
-                @Html.HiddenFor(model => model.BoolValues[i].Value)
-                @Html.HiddenFor(model => model.BoolValues[i].ItemId, new { id = "itemid", Value = Model.Id })
-            </tr>
-        }
-        @for (int i = 0; i < Model.StringValues.Count; i++)
-        {
-    <tr>
-        <td>String</td>
-        <td>
-            @Html.EditorFor(model => model.StringValues[i].Name)
-        </td>
-        <td>
-            @Html.TextAreaFor(model => model.StringValues[i].Value, new { id = "editor" })
-        </td>
-        @Html.HiddenFor(model => model.StringValues[i].Name)
-        @Html.HiddenFor(model => model.StringValues[i].Value)
-        @Html.HiddenFor(model => model.StringValues[i].ItemId, new { id = "itemid", Value = Model.Id })
-    </tr>
-        }
-        @for (int i = 0; i < Model.DateValues.Count; i++)
-        {
-            <tr>
-                <td>Date</td>
-                <td>
-                    @Html.EditorFor(model => model.DateValues[i].Name)
-                </td>
-                <td>
-                    @Html.EditorFor(model => model.DateValues[i].Value, new { Value = Model.DateValues[i].Value })
-                </td>
-                @Html.HiddenFor(model => model.DateValues[i].Name)
-                @Html.HiddenFor(model => model.DateValues[i].Value)
-                @Html.HiddenFor(model => model.DateValues[i].ItemId, new { id = "itemid", Value = Model.Id })
-            </tr>
-        }
-    </table>
-    @Html.TextBoxFor(model => model.Tags, new { id = "tags" })
-    @Html.HiddenFor(model => model.Tags)
-    @Html.HiddenFor(model => model.Id)
-    @Html.HiddenFor(model => model.CollectionId)
-    <input type="submit" value="Edit" />
-}
+            @for (int i = 0; i < Model.IntValues.Count; i++)
+            {
+                <tr>
+                    <td>@Language.IntType</td>
+                    <td>
+                        @Language.Name:@Html.EditorFor(model => model.IntValues[i].Name)  <br />
+                        @Language.Value:@Html.EditorFor(model => model.IntValues[i].Value)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(model => model.IntValues[i].Name)
+                        @Html.HiddenFor(model => model.IntValues[i].Value)
+                        @Html.HiddenFor(model => model.IntValues[i].ItemId, new { id = "itemid", Value = Model.Id })
+                </tr>
+            }
+            @for (int i = 0; i < Model.BoolValues.Count; i++)
+            {
+                <tr>
+                    <td>@Language.BoolType</td>
+                    <td>
+                        @Language.Name:@Html.EditorFor(model => model.BoolValues[i].Name) <br />
+                        @Language.Value:@Html.EditorFor(model => model.BoolValues[i].Value)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(model => model.BoolValues[i].Name)
+                        @Html.HiddenFor(model => model.BoolValues[i].Value)
+                        @Html.HiddenFor(model => model.BoolValues[i].ItemId, new { id = "itemid", Value = Model.Id })
+                </tr>
+            }
+            @for (int i = 0; i < Model.StringValues.Count; i++)
+            {
+                <tr>
+                    <td>@Language.StringType</td>
+                    <td>
+                        @Language.Name:@Html.EditorFor(model => model.StringValues[i].Name) <br />
+                        @Language.Value:@Html.TextAreaFor(model => model.StringValues[i].Value, new { id = "editor" + @i, @class = "editor" })
+                    </td>
+                    @Html.HiddenFor(model => model.StringValues[i].Name)
+                    @Html.HiddenFor(model => model.StringValues[i].Value)
+                    @Html.HiddenFor(model => model.StringValues[i].ItemId, new { id = "itemid", Value = Model.Id })
+                </tr>
+            }
+            @for (int i = 0; i < Model.DateValues.Count; i++)
+            {
+                <tr>
+                    <td>@Language.DateType</td>
+                    <td>
+                        @Language.Name:@Html.EditorFor(model => model.DateValues[i].Name)  <br />
+                        @Language.Value:@Html.EditorFor(model => model.DateValues[i].Value)
+                    </td>
+                    @Html.HiddenFor(model => model.DateValues[i].Name)
+                    @Html.HiddenFor(model => model.DateValues[i].Value)
+                    @Html.ValidationMessageFor(model => model.DateValues[i].Value, "Format: Month / Day / Year Hour: Minute: Secong PM/ AM.Time is optional")
+                    @Html.HiddenFor(model => model.DateValues[i].ItemId, new { id = "itemid", Value = Model.Id })
+                </tr>
+            }
+        </table>
+        @Html.TextBoxFor(model => model.Tags, new { id = "tags" })
+        @Html.HiddenFor(model => model.Tags)
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.CollectionId)
+        <input type="submit" value="@Language.Edit" />
+    }
 
-<div>
-    @Html.ActionLink("Cancel", "ShowCollection", new { id = Model.CollectionId })
+    <div>
+        @Html.ActionLink(Language.Cancel, "ShowCollection", new { id = Model.CollectionId })
+    </div>
 </div>
+
 
 @section Scripts {
     <script src="~/Scripts/jquery-3.4.1.js"></script>
@@ -109,6 +104,28 @@
             });
         }
         });
+
+
+        var editors = $(".editor");
+
+        editors.each(function () {
+            var editor = this;
+            ClassicEditor.create(document.querySelector('#' + this.id))
+                .then(editor => {
+                    console.log(editor);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
+
     </script>
 }
+<style>
+
+    .ck-editor {
+        max-width: 80% !important;
+        margin-left: 20% !important;
+    }
+</style>
 

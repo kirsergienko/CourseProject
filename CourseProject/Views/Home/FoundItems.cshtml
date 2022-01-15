@@ -1,95 +1,104 @@
 ﻿@using CourseProject.Models
+@using CourseProject.Resources
 @model List<Item>
 <div class="items">
     @for (int i = 0; i < Model.Count; i++)
     {
-        <p>Item @Model[i].Id </p>
+        <p>@Language.Item @Model[i].Id </p>
         <table class="table table-striped table-hover">
             <tr>
                 <td>
-                    Type
+                    @Language.Type
                 </td>
                 <td>
-                    Name
+                    @Language.Name
                 </td>
                 <td>
-                    Value
+                    @Language.Value
                 </td>
             </tr>
-            <tr>
-                <td>
-                    Int
-                </td>
-                @if (Model[i].IntValues.Count > 0)
+
+            @if (Model[i].IntValues.Count > 0)
+            {
+                for (int j = 0; j < Model[i].IntValues.Count; j++)
                 {
-                    for (int j = 0; j < Model[i].IntValues.Count; j++)
-                    {
+                    <tr>
+                        <td>
+                            @Language.IntType
+                        </td>
                         <td>
                             @Model[i].IntValues[j].Name
                         </td>
                         <td>
                             @Model[i].IntValues[j].Value
                         </td>
-                    }
+                    </tr>
                 }
-            </tr>
-            <tr>
-                <td>
-                    Bool
-                </td>
-                @if (Model[i].BoolValues.Count > 0)
+            }
+
+            @if (Model[i].BoolValues.Count > 0)
+            {
+                for (int j = 0; j < Model[i].BoolValues.Count; j++)
                 {
-                    for (int j = 0; j < Model[i].BoolValues.Count; j++)
-                    {
+
+                    <tr>
+                        <td>
+                            @Language.BoolType
+                        </td>
                         <td>
                             @Model[i].BoolValues[j].Name
                         </td>
                         <td>
                             @Model[i].BoolValues[j].Value
                         </td>
-                    }
+                    </tr>
                 }
-            </tr>
-            <tr>
-                <td>
-                    String
-                </td>
-                @if (Model[i].StringValues.Count > 0)
+            }
+
+
+            @if (Model[i].StringValues.Count > 0)
+            {
+                for (int j = 0; j < Model[i].StringValues.Count; j++)
                 {
-                    for (int j = 0; j < Model[i].StringValues.Count; j++)
-                    {
+                    <tr>
+                        <td>
+                            @Language.StringType
+                        </td>
                         <td>
                             @Model[i].StringValues[j].Name
                         </td>
                         <td>
                             @Html.Raw(Model[i].StringValues[j].Value)
                         </td>
-                    }
+                    </tr>
                 }
-            </tr>
-            <tr>
-                <td>
-                    Date
-                </td>
-                @if (Model[i].DateValues.Count > 0)
+            }
+
+
+            @if (Model[i].DateValues.Count > 0)
+            {
+                for (int j = 0; j < Model[i].DateValues.Count; j++)
                 {
-                    for (int j = 0; j < Model[i].DateValues.Count; j++)
-                    {
+                    <tr>
+                        <td>
+                            @Language.DateType
+                        </td>
                         <td>
                             @Model[i].DateValues[j].Name
                         </td>
                         <td>
                             @Model[i].DateValues[j].Value.ToString("dd MMMM yyyy")
                         </td>
-                    }
+                    </tr>
                 }
-            </tr>
-            Tags: @Model[i].Tags
+            }
+
+            @Language.Tags: @Model[i].Tags
         </table>
         <p>
-            Likes: @Model[i].Likes.Count
-            Added / Last changed: @Model[i].LastChanged
-            Collection id: @Model[i].CollectionId @Html.ActionLink("Look", "ShowCollection", new { id = Model[i].CollectionId })
+            @Language.Likes: @Model[i].Likes.Count
+            @Language.Added___Last_changed_: @Model[i].LastChanged
+            @Language.Collection_id: @Model[i].CollectionId @Html.ActionLink(Language.Look, "ShowCollection", new { id = Model[i].CollectionId })
         </p>
         <hr />
     }

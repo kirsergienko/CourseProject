@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CourseProject.Resources;
 
 namespace CourseProject.Controllers
 {
@@ -35,7 +36,7 @@ namespace CourseProject.Controllers
             }
             else
             {
-                ViewBag.ErrorMessage = loginManager.IsRegistred(login, password) ? "You are blocked." : "Wrong password or login.";
+                ViewBag.ErrorMessage = loginManager.IsRegistred(login, password) ? Language.You_are_blocked : Language.You_are_blocked;
                 return Login();
             }
         }
@@ -367,6 +368,18 @@ namespace CourseProject.Controllers
                     items = items.OrderByDescending(x => x.LastChanged).ToList();
                     break;
                 case "Bylikesdescending":
+                    items = items.OrderBy(x => x.Likes.Count).ToList();
+                    break;
+                case "Подате":
+                    items = items.OrderBy(x => x.LastChanged).ToList();
+                    break;
+                case "Полайкам":
+                    items = items.OrderByDescending(x => x.Likes.Count).ToList();
+                    break;
+                case "Податепоубыванию":
+                    items = items.OrderByDescending(x => x.LastChanged).ToList();
+                    break;
+                case "Полайкампоубыванию":
                     items = items.OrderBy(x => x.Likes.Count).ToList();
                     break;
                 default:

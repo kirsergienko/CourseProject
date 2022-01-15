@@ -1,24 +1,25 @@
-﻿@model CourseProject.Models.UserModel
+﻿@using CourseProject.Resources
+@model CourseProject.Models.UserModel
 <div style="margin-left:20%;">
-    <h2>Profile @Model.UserName</h2>
+    <h2>@Language.Profile @Model.UserName</h2>
     @if (ViewBag.IsAdmin)
     {
-        <div class="admin">
-            <h4>Admin info</h4>
-            <p>Email: @Model.EMail</p>
-            <p>Blocked: @Model.IsBlocked</p>
-            <p>Admin: @Model.IsAdmin</p>
-            @Html.ActionLink("Block", "BlockSingle", new { id = Model.Id }, new { @class = "btn btn-primary" })
-            @Html.ActionLink("Unblock", "UnblockSingle", new { id = Model.Id }, new { @class = "btn btn-primary" })
-            @Html.ActionLink("Delete", "DeleteSingle", new { id = Model.Id }, new { @class = "btn btn-primary" })
-            @Html.ActionLink("Change role", "ChangeRoleSingle", new { id = Model.Id }, new { @class = "btn btn-primary" })
-        </div>
+<div class="admin">
+    <h4>@Language.Admin_info</h4>
+    <p>Email: @Model.EMail</p>
+    <p>@Language.Blocked: @Model.IsBlocked</p>
+    <p>@Language.Admin: @Model.IsAdmin</p>
+    @Html.ActionLink(Language.Block, "BlockSingle", new { id = Model.Id }, new { @class = "btn btn-primary" })
+    @Html.ActionLink(Language.Unblock, "UnblockSingle", new { id = Model.Id }, new { @class = "btn btn-primary" })
+    @Html.ActionLink(Language.Delete, "DeleteSingle", new { id = Model.Id }, new { @class = "btn btn-primary" })
+    @Html.ActionLink(Language.Change_role, "ChangeRoleSingle", new { id = Model.Id }, new { @class = "btn btn-primary" })
+</div>
     }
     <hr />
-    <h3>Collections:</h3>
+    <h3>@Language.Collections:</h3>
     @if (ViewBag.CurrentUserId == Model.Id || ViewBag.IsAdmin)
     {
-        @Html.ActionLink("Add collection", "AddCollectionFromProfile", new { userid = Model.Id }, new { @class = "btn btn-primary" })
+        @Html.ActionLink(Language.Add_collection, "AddCollectionFromProfile", new { userid = Model.Id }, new { @class = "btn btn-primary" })
     }
     <div id="collections">
 

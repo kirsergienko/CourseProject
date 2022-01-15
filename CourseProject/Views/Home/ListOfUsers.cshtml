@@ -1,4 +1,5 @@
 ﻿@using CourseProject.Models
+@using CourseProject.Resources
 @model List<UserModel>
 <!DOCTYPE html>
 <html>
@@ -15,13 +16,13 @@
             if (ViewBag.IsAdmin)
             {
                 <div>
-                    <input type="submit" value="Delete" formaction="Delete" formmethod="post" height="40" width="40" />
-                    <input type="submit" value="Block" formaction="Block" formmethod="post" height="40" width="40" />
-                    <input type="submit" value="Unblock" formaction="Unblock" formmethod="post" height="50" width="40" />
-                    <input type="submit" value="Change Role" formaction="ChangeRole" formmethod="post" height="50" width="40" />
+                    <input type="submit" value="@Language.Delete" formaction="Delete" formmethod="post" height="40" width="40" />
+                    <input type="submit" value="@Language.Block" formaction="Block" formmethod="post" height="40" width="40" />
+                    <input type="submit" value="@Language.Unblock" formaction="Unblock" formmethod="post" height="50" width="40" />
+                    <input type="submit" value="@Language.Change_role" formaction="ChangeRole" formmethod="post" height="50" width="40" />
                 </div>
             }
-            <h2>Users:</h2>
+    <h2>@Language.Users:</h2>
             <table class="table" id="myTable">
                 <tr>
                     <td>
@@ -36,16 +37,16 @@
                         <p>Id</p>
                     </td>
                     <td>
-                        <p>User name</p>
+                        <p>@Language.User_name</p>
                     </td>
                     <td>
                         <p>E-Mail</p>
                     </td>
                     <td>
-                        <p>Is blocked</p>
+                        <p>@Language.Is_blocked</p>
                     </td>
                     <td>
-                        <p>Is admin</p>
+                        <p>@Language.Is_admin</p>
                     </td>
                     <td>
                         <p></p>
@@ -79,6 +80,6 @@
             </table>
         }
     </div>
-    @Html.ActionLink("Back", "MainPage", "Home")
+    @Html.ActionLink(Language.Back, "MainPage", "Home")
 </body>
 </html>

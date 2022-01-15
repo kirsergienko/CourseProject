@@ -1,91 +1,100 @@
 ﻿@model CourseProject.Models.Item
-<h2>Item from @ViewBag.Title</h2>
+    @using CourseProject.Resources
+<h2>@Language.Item_from @ViewBag.Title</h2>
 
 <div class="items">
     <table class="table table-striped table-hover">
         <tr>
             <td>
-                Type
+                @Language.Type
             </td>
             <td>
-                Name
+                @Language.Name
             </td>
             <td>
-                Value
+                @Language.Value
             </td>
         </tr>
-        <tr>
-            <td>
-                Int
-            </td>
-            @if (Model.IntValues.Count > 0)
+
+        @if (Model.IntValues.Count > 0)
+        {
+            for (int j = 0; j < Model.IntValues.Count; j++)
             {
-                for (int j = 0; j < Model.IntValues.Count; j++)
-                {
+                <tr>
+                    <td>
+                        @Language.IntType
+                    </td>
                     <td>
                         @Model.IntValues[j].Name
                     </td>
                     <td>
                         @Model.IntValues[j].Value
                     </td>
-                }
+                </tr>
             }
-        </tr>
-        <tr>
-            <td>
-                Bool
-            </td>
-            @if (Model.BoolValues.Count > 0)
+        }
+
+        @if (Model.BoolValues.Count > 0)
+        {
+            for (int j = 0; j < Model.BoolValues.Count; j++)
             {
-                for (int j = 0; j < Model.BoolValues.Count; j++)
-                {
+
+                <tr>
+                    <td>
+                        @Language.BoolType
+                    </td>
                     <td>
                         @Model.BoolValues[j].Name
                     </td>
                     <td>
                         @Model.BoolValues[j].Value
                     </td>
-                }
+                </tr>
             }
-        </tr>
-        <tr>
-            <td>
-                String
-            </td>
-            @if (Model.StringValues.Count > 0)
+        }
+
+
+        @if (Model.StringValues.Count > 0)
+        {
+            for (int j = 0; j < Model.StringValues.Count; j++)
             {
-                for (int j = 0; j < Model.StringValues.Count; j++)
-                {
+                <tr>
+                    <td>
+                        @Language.StringType
+                    </td>
                     <td>
                         @Model.StringValues[j].Name
                     </td>
                     <td>
                         @Html.Raw(Model.StringValues[j].Value)
                     </td>
-                }
+                </tr>
             }
-        </tr>
-        <tr>
-            <td>
-                Date
-            </td>
-            @if (Model.DateValues.Count > 0)
+        }
+
+
+        @if (Model.DateValues.Count > 0)
+        {
+            for (int j = 0; j < Model.DateValues.Count; j++)
             {
-                for (int j = 0; j < Model.DateValues.Count; j++)
-                {
+                <tr>
+                    <td>
+                        @Language.DateType
+                    </td>
                     <td>
                         @Model.DateValues[j].Name
                     </td>
                     <td>
                         @Model.DateValues[j].Value.ToString("dd MMMM yyyy")
                     </td>
-                }
+                </tr>
             }
-        </tr>
-        Tags: @Model.Tags
+        }
+
+        @Language.Tags: @Model.Tags
     </table>
     <p>
-        Added / Last changed: @Model.LastChanged
+        @Language.Added___Last_changed_ @Model.LastChanged
     </p>
 </div>
 <div>
@@ -108,12 +117,12 @@
         @using (Html.BeginForm("Comment", "Home", FormMethod.Post))
         {
             <div>
-                <p>Comment this item:</p>
+                <p>@Language.Comment_this_item:</p>
                 <input type="text" name="comment" />
                 @Html.HiddenFor(model => model.Id, new { name = "itemId" })
             </div>
             <div>
-                <input type="submit" value="Send comment" />
+                <input type="submit" value="@Language.Send_comment" />
             </div>
         }
     </div>

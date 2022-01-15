@@ -1,8 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using CourseProject.Resources
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Users</title>
+    <title>@Language.Home</title>
     <link href="@Url.Content("~/Content/site.css")" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 </head>
@@ -15,13 +16,13 @@
             @{ if (ViewBag.IsAdmin)
                 {
                     <div>
-                        @Html.ActionLink("List Of Users", "ListOfUsers", new { }, htmlAttributes: new { @class = "btn btn-primary mainbtn" })
+                        @Html.ActionLink(Language.List_of_users, "ListOfUsers", new { }, htmlAttributes: new { @class = "btn btn-primary mainbtn" })
                     </div>
                 }
                 if (ViewBag.IsNotGuest)
                 {
                     <div>
-                        @Html.ActionLink("Add Collection", "AddCollection",new { }, htmlAttributes: new { @class = "btn btn-primary mainbtn" })
+                        @Html.ActionLink(Language.Add_collection, "AddCollection",new { }, htmlAttributes: new { @class = "btn btn-primary mainbtn" })
                     </div>
                 }
             }

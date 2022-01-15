@@ -1,14 +1,15 @@
 ﻿@using CourseProject.Models
+@using CourseProject.Resources
 @model List<Collection>
 
 @foreach (var collection in Model)
 {
     <div>
-        <h4>Collection "@collection.Title"</h4>
+        <h4> @Language.Collection "@collection.Title"</h4>
         <hr />
         <dl class="dl-horizontal">
             <dt>
-                Collection picture:
+                @Language.Collection_picture:
             </dt>
 
             <dd>
@@ -24,7 +25,7 @@
             </dd>
 
             <dt>
-                Description:
+                @Language.Description:
             </dt>
 
             <dd>
@@ -32,7 +33,7 @@
             </dd>
 
             <dt>
-                Theme:
+                @Language.Theme:
             </dt>
 
             <dd>
@@ -40,7 +41,7 @@
             </dd>
 
             <dt>
-                Items Count:
+                @Language.Items_Count:
             </dt>
 
             <dd>

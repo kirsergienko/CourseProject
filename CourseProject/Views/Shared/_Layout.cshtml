@@ -17,7 +17,7 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="@Url.Action("MainPage")">
                 <img src="https://res.cloudinary.com/de7r0q8df/image/upload/v1642152351/MyImages/%D0%9D%D0%BE%D0%B2%D1%8B%D0%B9_%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82_fj8lzt.png" alt="" width="45" height="35" class="d-inline-block align-text-top">
-                CourseProject
+                @CourseProject.Resources.Language.CourseProject
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -25,18 +25,20 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="@Url.Action("MainPage")">Home</a>
+                        <a class="nav-link active" aria-current="page" href="@Url.Action("MainPage")">@CourseProject.Resources.Language.Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="@Url.Action("Login")">Login</a>
+                        <a class="nav-link active" aria-current="page" href="@Url.Action("Login")">@CourseProject.Resources.Language.Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="@Url.Action("Registration")">Registration</a>
+                        <a class="nav-link active" aria-current="page" href="@Url.Action("Registration")">@CourseProject.Resources.Language.Registration</a>
                     </li>
                 </ul>
-                <form class="d-flex" action="Search" method="post">
-                    <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                @CourseProject.Resources.Language._Language:  @Html.DropDownList("Language", (IEnumerable<SelectListItem>)new SelectList(new List<string> {"---", "Russian" ,"English" }), new { @class = "language" })
+
+                <form class="d-flex" action="@Url.Action("Search")" method="post">
+                    <input class="form-control me-2" type="search" name="search" placeholder="@CourseProject.Resources.Language.Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">@CourseProject.Resources.Language.Search</button>
                 </form>
             </div>
         </div>
@@ -86,5 +88,19 @@
         .tag:hover {
             color: #29108e
         }
+
+        .language{
+            margin-right: 10px;
+            margin-left: 10px;
+        }
 </style>
+
+<script>
+    $(".language").change(function () {
+        var lang = $(".language").val()
+        var url = "/Language/Change?LanguageAbbrevation=" + lang;
+        window.location.replace(url);
+
+    });
+</script>
 

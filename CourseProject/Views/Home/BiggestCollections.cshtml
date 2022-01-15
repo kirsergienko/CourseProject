@@ -1,29 +1,30 @@
 ﻿@using CourseProject.Models
+@using CourseProject.Resources
 @model List<Collection>
 
-<h4>Biggest collections</h4>
+<h4>@Language.Biggest_collections</h4>
 
 <div>
     @foreach (var collection in Model)
     {
         <hr />
-        @Html.ActionLink(collection.Title, "ShowCollection", new { id = collection.Id }, new { @class = "title" }) <p class="count"> Count: @collection.ItemsCount </p>
+        @Html.ActionLink(collection.Title, "ShowCollection", new { id = collection.Id }, new { @class = "title" }) <p class="count"> @Language.Count: @collection.ItemsCount </p>
     }
 </div>
 
 <style>
-    .title{
-        text-decoration:none;
+    .title {
+        text-decoration: none;
         font-size: 20px;
         color: forestgreen;
     }
 
-    .title:hover{
-        color:blue;
-    }
+        .title:hover {
+            color: blue;
+        }
 
-    .count{
-        font-size:20px;
-        white-space:nowrap;
+    .count {
+        font-size: 20px;
+        white-space: nowrap;
     }
 </style>

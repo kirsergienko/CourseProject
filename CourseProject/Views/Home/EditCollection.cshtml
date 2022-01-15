@@ -1,9 +1,10 @@
 ﻿@model CourseProject.Models.Collection
+    @using CourseProject.Resources
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Edit Collection</title>
+    <title>@Language.Edit_collection</title>
     <link href="@Url.Content("~/Content/site.css")" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/dropzone/dropzone.min.js"></script>
     <script src="~/Scripts/jquery-3.4.1.js"></script>
@@ -14,53 +15,53 @@
     {
         @Html.AntiForgeryToken()
         <div class="form-horizontal">
-            <h4>Edit Collection @Model.Title</h4>
+            <h4>@Language.Edit_collection @Model.Title</h4>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.Title, new { @id = "title" })
             @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
         <div>
-            Desciption:
+            @Language.Description:
             @Html.TextAreaFor(model => model.Description, new { id = "editor" })
         </div>
-            <p>Upload image for collection:</p>
+        <p>@Language.Upload_image_for_collection:</p>
             <div class="dropzone" id="my-dropzone" method="post"></div>
             @Html.HiddenFor(model => model.Image, new { id = "img" })
             <div>
-                <button type="button" id="submit-all"> Upload </button>
+                <button type="button" id="submit-all"> @Language.Upload </button>
             </div>
             @Html.HiddenFor(model => model.UserId)
             <div>
-                Theme:
+                @Language.Theme:
                 @Html.DropDownListFor(model => model.Theme, (IEnumerable<SelectListItem>)new SelectList(ViewBag.Themes))
             </div>
-            <h4>Items settings:</h4>
+            <h4>@Language.Items_settings:</h4>
             <div>
-                Int values count:
+                @Language.Int_values_count:
                 @Html.EditorFor(model => model.IntValuesCount)
                 @Html.ValidationMessageFor(model => model.IntValuesCount, "", new { @class = "text-danger" })
             </div>
             <div>
-                String values count:
+                @Language.String_values_count:
                 @Html.EditorFor(model => model.StringValuesCount)
                 @Html.ValidationMessageFor(model => model.StringValuesCount, "", new { @class = "text-danger" })
             </div>
             <div>
-                Bool values count:
+                @Language.Bool_values_count:
                 @Html.EditorFor(model => model.BoolValuesCount)
                 @Html.ValidationMessageFor(model => model.BoolValuesCount, "", new { @class = "text-danger" })
             </div>
             <div>
-                DateTime values count:
+                @Language.DateTime_values_count:
                 @Html.EditorFor(model => model.DateValuesCount)
                 @Html.ValidationMessageFor(model => model.DateValuesCount, "", new { @class = "text-danger" })
             </div>
         </div>
         <div>
-            <button type="submit"> Apply </button>
+            <button type="submit"> @Language.Apply </button>
         </div>
     }
     <div>
-        @Html.ActionLink("Cancel", "ShowCollection", new { id = Model.Id })
+        @Html.ActionLink(@Language.Cancel, "ShowCollection", new { id = Model.Id })
     </div>
 </body>
 </html>
@@ -89,6 +90,13 @@
                 });
             }
         };
+        vClassicEditor.create(document.querySelector('#editor'))
+            .then(editor => {
+                console.log(editor);
+            })
+            .catch(error => {
+                console.error(error);
+            });
     </script>
 }
 

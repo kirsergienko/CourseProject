@@ -1,7 +1,7 @@
 ﻿@model CourseProject.Models.Item
-
+@using CourseProject.Resources
 <div>
-    Comments:
+    @Language.Comments:
     @foreach (var comment in Model.Comments)
     {
         <div>

@@ -1,8 +1,12 @@
 ﻿@model string
-<h2>Results for @Model</h2>
+@using CourseProject.Resources
 
-Sort:
-@Html.DropDownList("Sort", (IEnumerable<SelectListItem>)new SelectList(new List<string> { "--", "By date", "By likes", "By date descending", "By likes descending" }), new { @class = "sort" })
+<div class="sortlist">
+    <h2>@Language.Results_for @Model</h2>
+    <span style="text-align:center">@Language.Sort:</span>
+    @Html.DropDownList(Language.Sort, (IEnumerable<SelectListItem>)new SelectList(new List<string> { "--", Language.By_date, Language.By_likes, Language.By_date_descending, Language.By_likes_descending }), new { @class = "sort" })
+</div>
+
 <div id="items">
 
 </div>
@@ -23,3 +27,12 @@ Sort:
     </script>
     <script src="~/Scripts/jquery-3.4.1.js"></script>
 }
+
+
+<style>
+    .sortlist {
+        text-align: center;
+        justify-items: center;
+        align-content: center;
+    }
+</style>
