@@ -31,6 +31,9 @@
                         <a class="nav-link active" aria-current="page" href="@Url.Action("MainPage")">@CourseProject.Resources.Language.Home</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="@Url.Action("MyProfile")">@CourseProject.Resources.Language.MyProfile</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="@Url.Action("Login")">@CourseProject.Resources.Language.Login</a>
                     </li>
                     <li class="nav-item">
@@ -105,7 +108,9 @@
 
     window.onload = function () {
         var _checked = '@cookie.Value.ToLower()';
-        chk.click();
+        if (_checked == 'true') {
+            chk.click();
+        }
     };
 </script>
 

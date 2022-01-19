@@ -282,6 +282,9 @@
   <data name="Look" xml:space="preserve">
     <value>Look</value>
   </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>My profile</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>

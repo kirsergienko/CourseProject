@@ -285,6 +285,9 @@
   <data name="Look" xml:space="preserve">
     <value>Посмотреть</value>
   </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>Мой профиль</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Имя</value>
   </data>

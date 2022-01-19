@@ -38,13 +38,15 @@ namespace CourseProject.Controllers
         {
             if (loginManager.IsRegistred(login, password) && !loginManager.IsBlocked(db.Find(login)))
             {
-                TempData["CurrentUser"] = login;
+                HttpCookie cookie = new HttpCookie("User");
+                cookie.Value = login;
+                Response.Cookies.Add(cookie);
                 SetCurrentUser();
-                return View("MainPage");
+                return MainPage();
             }
             else
             {
-                ViewBag.ErrorMessage = loginManager.IsRegistred(login, password) ? Language.You_are_blocked : Language.You_are_blocked;
+                ViewBag.ErrorMessage = loginManager.IsRegistred(login, password) ? Language.You_are_blocked : Language.Wrong_password_or_login;
                 return Login();
             }
         }
@@ -65,7 +67,9 @@ namespace CourseProject.Controllers
                     EMail = user.EMail,
                     Password = user.Password
                 });
-                TempData["CurrentUser"] = user.UserName;
+                HttpCookie cookie = new HttpCookie("User");
+                cookie.Value = user.UserName;
+                Response.Cookies.Add(cookie);
                 SetCurrentUser();
                 return View("MainPage");
             }
@@ -629,8 +633,16 @@ namespace CourseProject.Controllers
 
         private UserModel SetCurrentUser()
         {
-            UserModel user = db.Find((string)TempData["CurrentUser"]);
-            TempData.Keep("CurrentUser");
+            HttpCookie cookie = HttpContext.Request.Cookies.Get("User");
+            UserModel user;
+            if (cookie != null)
+            {
+                user = db.Find(cookie.Value);
+            }
+            else
+            {
+                user = null;
+            }
             if (user == null)
             {
                 ViewBag.IsAdmin = false;
