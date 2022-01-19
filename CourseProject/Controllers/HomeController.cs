@@ -20,6 +20,14 @@ namespace CourseProject.Controllers
 
         private LoginManager loginManager = new LoginManager();
 
+        public ActionResult Theme(bool _checked)
+        {
+            HttpCookie cookie = new HttpCookie("Theme");
+            cookie.Value = _checked.ToString();
+            Response.Cookies.Add(cookie);
+            return MainPage();
+        }
+
         public ActionResult Login()
         {
             return View("Login");

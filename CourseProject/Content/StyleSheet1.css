@@ -1,0 +1,103 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #fafafa;
+}
+
+    body.dark {
+        background: #000000;
+        color:white;
+    }
+
+
+
+.checkbox {
+    opacity: 0;
+    position: absolute;
+}
+
+.label {
+    background-color: #111;
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    position: relative;
+    height: 26px;
+    width: 50px;
+    transform: scale(1.5);
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+    .label .ball {
+        background-color: #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        height: 22px;
+        width: 22px;
+        transform: translateX(0px);
+        transition: transform 0.2s linear;
+    }
+
+.checkbox:checked + .label .ball {
+    transform: translateX(24px);
+}
+
+
+.fa-moon {
+    color: #f1c40f;
+}
+
+.fa-sun {
+    color: #f39c12;
+}
+
+.mainbtn {
+    margin-top: 10px;
+}
+.items {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    max-width: 800px;
+}
+
+.layout {
+    padding-top: 0px;
+    background-color: #ffffff
+}
+
+.btn-primary {
+    background-color: #ffffff;
+    color: forestgreen;
+    border-color: forestgreen;
+}
+
+    .btn-primary:hover {
+        background-color: forestgreen;
+    }
+
+.tag {
+    text-decoration: none;
+}
+
+    .tag:hover {
+        color: #29108e
+    }
+
+.language {
+    margin-right: 10px;
+    margin-left: 10px;
+}
