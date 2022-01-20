@@ -196,7 +196,7 @@ namespace CourseProject.Controllers
             }
             db.AddItem(item);
             db.AddTags(item.Tags, item.Id);
-            return ShowCollection(item.CollectionId);
+            return RedirectToAction("ShowCollection", new { id = item.CollectionId });
         }
 
         public ActionResult EditItem(int id)
@@ -267,7 +267,7 @@ namespace CourseProject.Controllers
                     return Login();
             }
             db.EditItem(item);
-            return ShowCollection(item.CollectionId);
+            return RedirectToAction("ShowCollection", new { id = item.CollectionId });
         }
 
         private Item InitialAddItemModel(Collection collection)
@@ -323,7 +323,7 @@ namespace CourseProject.Controllers
             db.RemoveItem(id);
             ViewBag.CurrentUserId = user.Id;
             ViewBag.Items = db.GetItems(collection.Id);
-            return ShowCollection(collection.Id);
+            return RedirectToAction("ShowCollection", new { id = item.CollectionId });
         }
 
         public ActionResult ShowCollection(int id)
@@ -449,7 +449,7 @@ namespace CourseProject.Controllers
                 db.AddCollection(collection);
                 ViewBag.CurrentUserId = user.Id > 0 ? user.Id : -1;
                 ViewBag.Items = db.GetItems(collection.Id);
-                return ShowCollection(collection.Id);
+                return RedirectToAction("ShowCollection", new { id = collection.Id });
             }
             else
             {

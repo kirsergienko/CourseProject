@@ -82,16 +82,18 @@
 
 </div>
 
+
 <p style="margin-left:20%">
     @Html.ActionLink(Language.Home, "MainPage")
 </p>
+
 
 @section Scripts {
     <script>
         $(".sort").change(function () {
             var sort = $(".sort").val()
             var url = "/Home/SortedItems?collectionId=" + @Model.Id + "&sort=" + sort.replace(/ /g, '');;
-            $("#items").load(url)
+            $("#items").load(url);
     });
     </script>
     <script>

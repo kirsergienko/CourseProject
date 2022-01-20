@@ -24,8 +24,8 @@
                 }
             }
 
-            <table class="table table-hover table-item" >
-                <tr >
+            <table class="table table-item">
+                <tr>
                     <td>
                         @Language.Type
                     </td>
@@ -114,7 +114,7 @@
 
             </table>
             <p>
-               @Language.Added___Last_changed_ @Model[i].LastChanged
+                @Language.Added___Last_changed_ @Model[i].LastChanged
             </p>
             <div>
                 @Html.ActionLink(Language.Show_item, "ShowItem", new { id = Model[i].Id }, new { @class = "btn btn-primary" })
@@ -124,4 +124,5 @@
         }
     </div>
 </body>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
 

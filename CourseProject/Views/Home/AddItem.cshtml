@@ -9,7 +9,7 @@
     <h4>@Language.Add_item_to @ViewBag.Title</h4>
     @using (Html.BeginForm())
     {
-        <table class="table table-hover">
+        <table class="table">
             <tr>
                 <td>
                     @Language.Type
@@ -69,7 +69,6 @@
                     </td>
                     @Html.HiddenFor(model => model.DateValues[i].Name)
                     @Html.HiddenFor(model => model.DateValues[i].Value)
-                    @Html.ValidationMessageFor(model => model.DateValues[i].Value, Language.Format)
                     @Html.HiddenFor(model => model.DateValues[i].ItemId, new { id = "itemid", Value = Model.Id })
                 </tr>
             }
