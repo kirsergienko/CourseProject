@@ -8,7 +8,7 @@
         @for (int i = 0; i < Model.Count; i++)
         {
             <li class="taglist">
-                <a href="/Home/SearchTag?search=@Model[i].Tag" data-weight="@((10-i)/2)">@Model[i].Tag</a>
+                <a class="tag_" href="/Home/SearchTag?search=@Model[i].Tag" data-weight="@((10-i)/2)">@Model[i].Tag</a>
             </li>
         }
     </ul>
@@ -52,6 +52,7 @@
     .taglist a{
         text-decoration: none;
     }
+
 
 
 </style>

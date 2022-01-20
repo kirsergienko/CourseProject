@@ -9,8 +9,8 @@ body {
 }
 
     body.dark {
-        background: #000000;
-        color:white;
+        background: #212121;
+        color: white;
     }
 
 
@@ -100,4 +100,10 @@ body {
 .language {
     margin-right: 10px;
     margin-left: 10px;
+}
+
+.ck-editor {
+    max-width: 80% !important;
+    margin-left: 20% !important;
+    color: black !important;
 }

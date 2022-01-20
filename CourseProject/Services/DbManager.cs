@@ -10,6 +10,11 @@ namespace CourseProject.Services
     {
         ApplicationContext context = new ApplicationContext();
 
+
+        public List<string> GetThemes()
+        {
+            return context.Themes.Select(x=>x.Name).ToList();
+        }
         public void AddTags(string tagString, int itemId)
         {
             if (!String.IsNullOrEmpty(tagString))

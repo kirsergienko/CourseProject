@@ -183,6 +183,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201191802259_Initial.cs" />
+    <Compile Include="Migrations\202201191802259_Initial.designer.cs">
+      <DependentUpon>202201191802259_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201200857314_themes.cs" />
+    <Compile Include="Migrations\202201200857314_themes.designer.cs">
+      <DependentUpon>202201200857314_themes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationContext.cs" />
     <Compile Include="Models\BoolValue.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -195,6 +204,7 @@
     <Compile Include="Models\StringValue.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\TagCloud.cs" />
+    <Compile Include="Models\Theme.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Language.ru.Designer.cs">
@@ -338,6 +348,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\202201191802259_Initial.resx">
+      <DependentUpon>202201191802259_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201200857314_themes.resx">
+      <DependentUpon>202201200857314_themes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Language.ru.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Language.ru.Designer.cs</LastGenOutput>

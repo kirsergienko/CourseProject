@@ -478,16 +478,7 @@ namespace CourseProject.Controllers
         private void InitalViewBagforAddCollection(UserModel user)
         {
             ViewBag.UserId = user.Id;
-            ViewBag.Themes = new List<string>
-            {
-                "Books",
-                "Movies",
-                "Games",
-                "Videos",
-                "Photos",
-                "Cars",
-                "Else"
-            };
+            ViewBag.Themes = db.GetThemes();
         }
 
         [HttpPost]

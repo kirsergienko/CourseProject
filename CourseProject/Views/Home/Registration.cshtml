@@ -29,7 +29,7 @@
     <div class="mb-3">
         @Language.Password:
         <div class="textbox">
-            @Html.TextBoxFor(model => model.Password, new { htmlAttributes = new { @type = "password" } })
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @type = "password" } })
             @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -37,7 +37,7 @@
     <div class="mb-3">
         @Language.Password_confirmation
         <div class="textbox">
-            @Html.TextBoxFor(model => model.PasswordConfirmation, new { htmlAttributes = new { @type = "password" } })
+            @Html.EditorFor(model => model.PasswordConfirmation, new { htmlAttributes = new { @type = "password" } })
             @Html.ValidationMessageFor(model => model.PasswordConfirmation, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -64,8 +64,12 @@
         margin-top: 5px;
     }
 
-    .mb-3{
+    .mb-3 {
         margin-bottom: 5px !important;
+    }
+
+    .text-danger{
+        position: absolute;
     }
 
 </style>
