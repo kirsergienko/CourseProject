@@ -65,7 +65,7 @@
                     <td>@Language.DateType</td>
                     <td>
                         @Language.Name:@Html.EditorFor(model => model.DateValues[i].Name)  <br />
-                        @Language.Value:@Html.EditorFor(model => model.DateValues[i].Value)
+                        @Language.Value:@Html.EditorFor(model => model.DateValues[i].Value, new { @class = "datepicker" })
                     </td>
                     @Html.HiddenFor(model => model.DateValues[i].Name)
                     @Html.HiddenFor(model => model.DateValues[i].Value)
@@ -97,6 +97,7 @@
         }
         });
 
+
     var editors = $(".editor");
 
     editors.each(function () {
@@ -110,12 +111,9 @@
             });
     });
 
-    
+
 </script>
 
 
 <style>
-
-   
-
 </style>

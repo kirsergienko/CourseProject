@@ -11,6 +11,7 @@ namespace CourseProject.Models
 
         public string Name { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime Value { get; set; }
     }
 }
