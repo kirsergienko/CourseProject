@@ -96,6 +96,10 @@
     chk.addEventListener('change', () => {
         $.get("/Home/Theme?_checked=" + chk.checked);
         document.body.classList.toggle('dark');
+        if (chk.checked == true) {
+            $('#lang').css('color', 'black');
+            $('#theme').css('color', 'black');
+        }
     });
 
     window.onload = function () {

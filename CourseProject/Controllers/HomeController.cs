@@ -11,7 +11,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CourseProject.Resources;
-
+using CsvHelper;
 namespace CourseProject.Controllers
 {
     public class HomeController : Controller
@@ -28,6 +28,30 @@ namespace CourseProject.Controllers
             return MainPage();
         }
 
+        public FileResult DownloadCSV(int id)
+        {
+            var collection = db.GetCollection(id);
+            var items = db.GetItems(id);
+            byte[] file = new byte[16*1024];
+            using (var stream = new MemoryStream(file))
+            {
+                using (StreamWriter streamReader = new StreamWriter(stream))
+                {
+                    using (CsvWriter csvReader = new CsvWriter(streamReader, new System.Globalization.CultureInfo("en-US")))
+                    {
+                        foreach(var item in items)
+                        {
+                            csvReader.WriteRecords(item.IntValues);
+                            csvReader.WriteRecords(item.StringValues);
+                            csvReader.WriteRecords(item.DateValues);
+                            csvReader.WriteRecords(item.BoolValues);
+                        }
+                    }
+                }
+            }
+            return File(file, "text/csv", $"Collection {collection.Title}.csv");
+        }
+        
         public ActionResult Login()
         {
             return View("Login");

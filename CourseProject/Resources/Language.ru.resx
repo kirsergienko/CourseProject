@@ -228,6 +228,9 @@
   <data name="Description" xml:space="preserve">
     <value>Описание</value>
   </data>
+  <data name="Download to CSV format" xml:space="preserve">
+    <value>Скачать в формате CSV</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Редактировать</value>
   </data>

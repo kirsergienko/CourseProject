@@ -54,9 +54,10 @@
     </dl>
     @Html.ActionLink(Language.Author, "ShowUser", new { id = Model.UserId })
     <hr />
+    @Html.ActionLink(Language.Download_to_CSV_format, "DownloadCSV", new { id = Model.Id }, new { @class = "btn btn-primary" })
     @if (ViewBag.CurrentUserId == Model.UserId || ViewBag.IsAdmin)
     {
-        <table style="margin-bottom:10px">
+        <table style="margin-bottom:10px; margin-top:10px;">
             <tr>
                 <td>
                     @Html.ActionLink(Language.Add_item, "AddItem", new { id = Model.Id }, new { @class = "btn btn-primary" })

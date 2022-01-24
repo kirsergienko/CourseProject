@@ -394,6 +394,15 @@ namespace CourseProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Download to CSV format.
+        /// </summary>
+        public static string Download_to_CSV_format {
+            get {
+                return ResourceManager.GetString("Download to CSV format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         public static string Edit {
